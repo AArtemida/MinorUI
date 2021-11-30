@@ -1,6 +1,6 @@
 /*
  * @Description: 组件库打包配置
- * @Author: hy
+ * @Author: moon
  * @Date: 2021-11-29 10:39:38
  * @LastEditors: hy
  * @LastEditTime: 2021-11-29 11:03:11
