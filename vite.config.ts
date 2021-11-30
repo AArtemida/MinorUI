@@ -2,8 +2,8 @@
  * @Description:
  * @Author: moon
  * @Date: 2021-11-25 11:45:08
- * @LastEditors: moon
- * @LastEditTime: 2021-11-26 16:49:13
+ * @LastEditors: hy
+ * @LastEditTime: 2021-11-30 16:07:33
  */
 import type { UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -42,9 +42,10 @@ const config: UserConfig = {
     Pages({
       pagesDir: [
         { dir: "examples/pages", baseRoute: "" },
-        { dir: "examples/docs", baseRoute: "" },
+        { dir: "examples/docs", baseRoute: "doc/" },
       ],
       extensions: ['vue', 'md'],
+      importMode: 'async',
     }),
     // ViteComponents()
   ],

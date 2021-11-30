@@ -1,5 +1,36 @@
+@import '../../lib/themes/index.css';
+
+$primary: #2196f3;
+$white: #fff;
+
 [class^="mi-"], [class*=" mi-"] {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+body, html, #app{
+  height: 100%;
+}
+
+body {
+  background: #ddedf6;
+}
+
+.main-container {
+  width: 100%;
+  position: relative;
+  text-align: left;
+  color: $primary;
+  height: calc(100% - 55px);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.markdownIt-Anchor {
+  display: none;
+}
+

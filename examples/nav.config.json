@@ -1,0 +1,54 @@
+{
+  "指南": [
+    {
+      "path": "introduce",
+      "name": "introduce",
+      "meta": {
+        "title": "介绍"
+      }
+    },
+    {
+      "name": "install",
+      "path": "install",
+      "meta": {
+        "title": "安装"
+      }
+    },
+    {
+      "path": "quickstart",
+      "name": "quickstart",
+      "meta": {
+        "title": "快速开始"
+      }
+    },
+    {
+      "path": "theme",
+      "name": "theme",
+      "meta": {
+        "title": "自定义主题"
+      }
+    },
+    {
+      "name": "logs",
+      "path": "logs",
+      "meta": {
+        "title": "更新日志"
+      }
+    }
+  ],
+  "组件": [
+    {
+      "meta": {
+        "title": "基础组件"
+      },
+      "items": [{
+          "meta": {
+            "title": "Card 卡片"
+          },
+          "path": "card",
+          "name": "card"
+        }
+      ]
+    }
+  ]
+}

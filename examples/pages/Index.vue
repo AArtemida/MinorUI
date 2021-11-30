@@ -2,20 +2,66 @@
  * @Description:
  * @Author: moon
  * @Date: 2021-11-26 14:29:01
- * @LastEditors: moon
- * @LastEditTime: 2021-11-26 16:51:04
+ * @LastEditors: hy
+ * @LastEditTime: 2021-11-30 17:11:14
 -->
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-</script>
-
 <template>
-  <main>
-    index
-  </main>
+  <canvas ref="canvas" class="canvas-bg" width="100%" height="100%"></canvas>
+  <section class="mi-content">
+    <h1>Title</h1>
+    <h2 class="mi-desc">aaaaaaaaaaaaaaaaaaaaaaaaaaaa</h2>
+    <p>
+      <router-link to="introduce">
+        <button class="mi-btn">快速开始</button>
+      </router-link>
+    </p>
+  </section>
 </template>
 
-<style>
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { drawCanvas } from "@/utils/starCanvas";
 
+export default defineComponent({
+  setup() {
+    const { canvas } = drawCanvas()
+    return { canvas }
+  },
+})
+</script>
+
+<style lang="scss" scoped>
+$primary: #2196f3;
+$white: #fff;
+.canvas-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mi-btn {
+  border: 2px solid $primary;
+  color: $primary;
+  border-radius: 50px;
+  background: transparent;
+  padding: 12px 35px;
+  font-size: 16px;
+  transition: all ease 0.5s;
+  &:hover {
+    background: linear-gradient(to left, #7b4397, $primary);
+    color: $white;
+  }
+}
+.mi-desc {
+  margin: 30px 0;
+}
+.mi-content {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 </style>

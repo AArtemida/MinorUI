@@ -2,37 +2,50 @@
  * @Description:
  * @Author: moon
  * @Date: 2021-11-25 11:54:06
- * @LastEditors: moon
- * @LastEditTime: 2021-11-26 15:36:05
+ * @LastEditors: hy
+ * @LastEditTime: 2021-11-30 16:20:59
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import routes from 'virtual:generated-pages'
-// import HelloWorld from '../components/HelloWorld.vue'
-// const routes: Array<RouteRecordRaw> = [
-//   {
-//     path: '',
-//     redirect: (_) => {
-//       return { path: '/home' }
-//     },
-//   },
-//   {
-//     path: '/home',
-//     name: 'HelloWorld',
-//     component: HelloWorld,
-//   },
-//   {
-//     path: '/button',
-//     name: 'button',
-//     component: async () => import('../docs/Button.md')
-//   },
-//   {
-//     path: '/:currentPath(.*)*', // 路由未匹配到，进入这个
-//     redirect: (_) => {
-//       return { path: '/404' }
-//     },
-//   },
-// ]
-console.log(routes)
+import routePages from 'virtual:generated-pages'
+
+let docs : Array<any> = routePages.filter((r : any) => {
+  return r.path && r.path.includes('doc/')
+}).map((r : any) => {
+  let o = Object.assign({}, r)
+  o.path = o.path.replace('/doc', '')
+  return o
+})
+let pages : Array<RouteRecordRaw> = []
+routePages.forEach((r : any) => {
+  if(r.path && !r.path.includes('doc/')) {
+    if(r.path === '/doc') {
+      r.children = docs
+    }
+    pages.push(r)
+  }
+})
+
+const routes: Array<RouteRecordRaw> = [
+  /*{
+    path: '',
+    redirect: (_) => {
+      return { path: '/home' }
+    },
+  },
+  {
+    path: '/button',
+    name: 'button',
+    component: async () => import('../docs/Button.md')
+  },*/
+  ...pages,
+  {
+    path: '/:currentPath(.*)*', // 路由未匹配到，进入这个
+    redirect: (_) => {
+      return { path: '/404' }
+    },
+  },
+]
+
 const router = createRouter({
   history: createWebHistory(''),
   routes,
