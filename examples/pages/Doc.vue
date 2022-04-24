@@ -3,7 +3,7 @@
  * @Author: moon
  * @Date: 2021-11-26 14:29:01
  * @LastEditors: hy
- * @LastEditTime: 2021-11-30 17:09:30
+ * @LastEditTime: 2022-04-24 09:58:21
 -->
 <template>
   <div class="mi-doc">
@@ -32,6 +32,8 @@ export default defineComponent({
   .mi-doc-content {
     flex: 1 auto;
     padding: 20px;
+    padding-left: 200px;
+    overflow-y: scroll;
   }
 }
 </style>

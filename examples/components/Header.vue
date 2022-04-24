@@ -3,7 +3,7 @@
  * @Author: moon
  * @Date: 2021-11-29 10:49:14
  * @LastEditors: hy
- * @LastEditTime: 2021-11-30 17:10:46
+ * @LastEditTime: 2022-04-24 10:07:53
 -->
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -23,7 +23,7 @@ export default defineComponent({
 
 <template>
   <header class="mi-header">
-    <router-link to="/" class="mi-logo">Header</router-link>
+    <router-link to="/" class="mi-logo">Minor UI</router-link>
 
     <nav>
       <a>{{ n }}</a>

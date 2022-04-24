@@ -10,10 +10,9 @@ desc: 'desc'
 
 ```vue demo
 <template>
-  <div>
+  <mi-card>
     ccccc
-    <button>click</button>
-  </div>
+  </mi-card>
 </template>
 ```
 

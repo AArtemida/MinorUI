@@ -3,7 +3,7 @@
  * @Author: moon
  * @Date: 2021-11-30 14:21:14
  * @LastEditors: hy
- * @LastEditTime: 2021-11-30 18:28:47
+ * @LastEditTime: 2022-04-24 10:07:59
 -->
 <template>
   <div class="mi-sidebar">
@@ -50,9 +50,12 @@ $fontColor6: #666;
 .mi-sidebar {
   text-align: left;
   font-size: 14px;
-  width: 130px;
+  width: 180px;
   border-right: 1px solid rgba($primary, .3);
   height: 100%;
+  flex: none;
+  position: fixed;
+  overflow-y: auto;
   a {
     display: inline-block;
     color: $fontColor6;

@@ -1,0 +1,6 @@
+@import "./config";
+/* BEM
+ -------------------------- */
+ @mixin b($block) {
+  $B: $namespace+'-'+$block !global;
+}

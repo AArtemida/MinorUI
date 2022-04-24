@@ -1,0 +1,42 @@
+<!--
+ * @Description:
+ * @Author: hy
+ * @Date: 2021-12-15 17:33:13
+ * @LastEditors: hy
+ * @LastEditTime: 2022-04-24 10:21:38
+-->
+<template>
+  <mi-virtual-scroll :list="list" rows=50 height=600>
+    <template #default="{ item }">
+      <div class="scroll-demo__item" :data-id="item">children {{ item + 1 }}</div>
+    </template>
+  </mi-virtual-scroll>
+</template>
+
+<script lang="ts">
+  import { defineComponent, reactive } from "vue"
+
+  let list : number[] = reactive([])
+  let arr = []
+  for(let i = 0; i < 300; i++) {
+    arr.push(i)
+  }
+  list = arr
+  export default defineComponent({
+    name: 'ScrollDemo',
+    setup(props, context) {
+      return {
+        list
+      }
+    }
+  })
+</script>
+
+<style lang="scss" scoped>
+.scroll-demo__item {
+  border-bottom: 1px solid #ddd;
+  color: #333;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+</style>

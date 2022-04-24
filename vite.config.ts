@@ -3,7 +3,7 @@
  * @Author: moon
  * @Date: 2021-11-25 11:45:08
  * @LastEditors: hy
- * @LastEditTime: 2021-11-30 16:07:33
+ * @LastEditTime: 2022-04-24 10:00:23
  */
 import type { UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -54,6 +54,7 @@ const config: UserConfig = {
       '@': path.resolve(__dirname, './examples'),
       '@docs': path.resolve(__dirname, './examples/docs'),
       '@components': path.resolve(__dirname, './examples/components'),
+      "~": path.resolve(__dirname, "./packages"),
       vue: "vue/dist/vue.esm-bundler.js"
     },
   },

@@ -2,25 +2,25 @@
  * @Description:
  * @Author: moon
  * @Date: 2021-11-29 14:24:44
- * @LastEditors: moon
- * @LastEditTime: 2021-11-29 15:08:11
+ * @LastEditors: hy
+ * @LastEditTime: 2022-04-24 10:24:36
 -->
 <script lang="ts">
   import { defineComponent } from "vue"
 
   export default defineComponent({
-    name: 'Card',
-    props: {
-      text: {
-        type: String,
-        default: 'click'
-      }
-    },
+    name: 'MiCard',
   })
 </script>
 
+
 <template>
-  <button>
-    {{ text }}
-  </button>
+  <div class="mi-card">
+    <div class="mi-card__header">
+      <slot name="header"></slot>
+    </div>
+    <div class="mi-card__content">
+      <slot></slot>
+    </div>
+  </div>
 </template>

@@ -34,3 +34,19 @@ ul {
   display: none;
 }
 
+.vuedoc {
+  h2 {
+    margin-bottom: 20px;
+  }
+}
+
+/*滚动条样式 webkit有效*/
+::-webkit-scrollbar {
+  width: 6px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(144, 147, 153, 0.5);
+  border-radius: 4px;
+}

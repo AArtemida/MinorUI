@@ -3,15 +3,21 @@
  * @Author: moon
  * @Date: 2021-11-29 14:21:31
  * @LastEditors: hy
- * @LastEditTime: 2021-11-29 14:26:48
+ * @LastEditTime: 2022-04-24 10:25:47
  */
 import type { App } from "vue"
 
 /* 基础组件 */
-import Card from "./Card"
+import MiCard from "./Card"
+import MiImageList from "./ImageList"
+
+/* 功能组件 */
+import MiVirtualScroll from "./VirtualScroll"
 
 const components: any[] = [
-  Card
+  MiCard,
+  MiImageList,
+  MiVirtualScroll,
 ]
 // 需要添加到 VUE 实例的 API
 // const API = { Toast, MessageBox };
@@ -31,7 +37,9 @@ const components: any[] = [
 }
 
 export {
-  Card
+  MiCard,
+  MiImageList,
+  MiVirtualScroll,
 }
 
 // 全部导出
