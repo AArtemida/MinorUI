@@ -4,12 +4,13 @@
   "main": "dist/lib/minorUi.js",
   "scripts": {
     "dev": "vite",
-    "build": "yarn build:theme && yarn build:package",
+    "build": "yarn clean && yarn build:theme && yarn build:package",
     "serve": "vite preview",
     "test": "jest --runInBand",
     "lib": "vite build --target lib --name minor-ui --dest lib packages/index.ts",
     "build:theme": "gulp build --gulpfile packages/themes/gulpfile.js",
-    "build:package": "rollup -c build/rollup.config.js"
+    "build:package": "rollup -c rollup.config.js",
+    "clean": "rimraf ./lib ./dist"
   },
   "resolutions": {
     "node-sass": "npm:sass@1.43.5"

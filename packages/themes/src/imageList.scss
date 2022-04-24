@@ -1,0 +1,72 @@
+@use 'mixins/mixins' as *;
+@use './var' as *;
+
+@include b(card) {
+  border-radius: 3px;
+  border: 1px solid $border-color-light;
+  overflow: hidden;
+  background: $bg-color;
+  box-shadow: $box-shadow-light;
+
+  @include e(header) {
+    padding: 20px 10px 15px 10px;
+    margin: 0 10px;
+    border-bottom: 1px solid $border-color;
+    box-sizing: border-box;
+  }
+
+  @include e(content) {
+    padding: 20px;
+    box-sizing: border-box;
+  }
+}
+
+@include b(images) {
+  position: relative;
+  @include e(content) {
+    display: flex;
+    transition: all 0.3s;
+    overflow-x: scroll;
+  }
+  @include e(btn) {
+    position: absolute;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    background: rgba(#fff, 0.7);
+    top: 30%;
+  }
+  @include e(next) {
+    right: 0;
+  }
+  @include e(prev) {
+    left: 0;
+  }
+  @include e(item) {
+    flex: none;
+    width: 120px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    & + .mi-images__item {
+      margin-left: 10px;
+    }
+    .mi-images__src {
+      width: 100%;
+      height: 80%;
+      flex: 1 auto;
+      overflow: hidden;
+      margin-bottom: 5px;
+      > img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .mi-images__txt {
+      padding-bottom: 5px;
+    }
+  }
+}
