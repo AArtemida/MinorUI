@@ -3,7 +3,7 @@
  * @Author: moon
  * @Date: 2021-11-30 14:21:14
  * @LastEditors: hy
- * @LastEditTime: 2022-04-24 10:07:59
+ * @LastEditTime: 2022-04-24 17:31:20
 -->
 <template>
   <div class="mi-sidebar">
@@ -76,6 +76,9 @@ $fontColor6: #666;
   .mi-menu-li {
     padding: 8px 20px;
     width: 100%;
+    word-break: break-word;
+    white-space: normal;
+    box-sizing: border-box;
     &:hover {
       background: rgba(208,228,245);
     }

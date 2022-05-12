@@ -68,6 +68,13 @@
           },
           "path": "VirtualScroll",
           "name": "VirtualScroll"
+        },
+        {
+          "meta": {
+            "title": "HorizontalTimeline 时间轴"
+          },
+          "path": "HorizontalTimeline",
+          "name": "HorizontalTimeline"
         }
       ]
     }

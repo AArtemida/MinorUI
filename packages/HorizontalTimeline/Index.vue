@@ -3,13 +3,13 @@
  * @Author: hy
  * @Date: 2022-04-18 17:01:32
  * @LastEditors: hy
- * @LastEditTime: 2022-04-22 17:05:28
+ * @LastEditTime: 2022-04-25 09:48:51
 -->
 <script lang="ts">
-import { defineComponent, ref, reactive, onMounted, nextTick, computed } from 'vue'
+import { defineComponent, ref, onMounted, nextTick, computed } from 'vue'
 
 export default defineComponent({
-  name: 'HorizontalTimeline',
+  name: 'MiHorTimeline',
   props: {
     list: {
       type: Object,
@@ -18,15 +18,13 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     // 定义响应数据
-    let widthInfo : any = reactive({
-      allWidth: 0,
-      lineWidth: 0,
-      sliderLeft: 0,
-      boxLeft: 0,
-    })
-    let isClickList = false,
-      isClickSlider = false,
-      scrollTicking = false
+    let allWidth : any = ref(0),
+      lineWidth : any = ref(0),
+      sliderLeft : any = ref(0),
+      boxLeft : any = ref(0)
+    let isClickList : any = ref(false),
+      isClickSlider : any = ref(false),
+      scrollTicking : any = ref(false)
 
     let timeLineBox = ref<HTMLDivElement | null>(null)
 
@@ -61,9 +59,9 @@ export default defineComponent({
 
     const commonRate = computed(() : number => {
       let rate : number = 0
-      if (widthInfo.allWidth && widthInfo.lineWidth) {
-        const line = widthInfo.lineWidth - 5
-        const distance = widthInfo.allWidth - line
+      if (allWidth.value && lineWidth.value) {
+        const line = lineWidth.value - 5
+        const distance = allWidth.value - line
         rate = distance / line
       }
       return rate
@@ -71,8 +69,8 @@ export default defineComponent({
 
     const boxRate = computed(() : string => {
       let rate : string = '0'
-      if (widthInfo.boxLeft && widthInfo.allWidth) {
-        rate = (widthInfo.boxLeft / widthInfo.allWidth) * 100 + '%'
+      if (boxLeft.value && allWidth.value) {
+        rate = (boxLeft.value / allWidth.value) * 100 + '%'
       }
       return rate
     })
@@ -84,62 +82,65 @@ export default defineComponent({
       const doms = timeItems?.value
       let w = 0
       if (doms) {
-        // doms.forEach((dom : HTMLDivElement) => {
-        //   w += dom.offsetWidth
-        // })
-        widthInfo.allWidth = w
+        doms.forEach((dom : HTMLDivElement) => {
+          w += dom.offsetWidth
+        })
+        allWidth.value = w
       }
-      // if (timeLineBox) {
-      //   widthInfo.lineWidth = timeLineBox.value.offsetWidth
-      // }
-      widthInfo.sliderLeft = 0
-      widthInfo.boxLeft = 0
+       const wrapRef = timeLineBox.value
+      if (wrapRef) {
+        lineWidth.value = wrapRef?.offsetWidth || 0
+      }
+      sliderLeft.value = 0
+      boxLeft.value = 0
     }
     // 获取各个时间轴线条宽度
     const getLineFlex = (len : number) : string => {
       return len + ' auto'
     }
 
+    // 列表左移距离
     const getBoxLeft = (newL : number) => {
-      const max = widthInfo.allWidth - widthInfo.lineWidth
+      const max = allWidth.value - lineWidth.value
       if (max < 0) return
       if (Math.abs(newL) >= max) {
-        widthInfo.boxLeft = max
+        boxLeft.value = max
       } else if (newL > 0) {
-        widthInfo.boxLeft = 0
+        boxLeft.value = 0
       } else {
-        widthInfo.boxLeft = newL
+        boxLeft.value = newL
       }
-      widthInfo.sliderLeft = Math.abs(widthInfo.boxLeft) / commonRate.value
+      sliderLeft.value = Math.abs(boxLeft.value) / commonRate.value
     }
     const mousedown  = (e : any) => {
       const disX = e.clientX
-      const curX = widthInfo.boxLeft
-      isClickList = true
+      const curX = boxLeft.value
+      isClickList.value = true
       document.onmousemove = e => {
-        if (isClickList) {
+        if (isClickList.value) {
           const newDisX : number = e.clientX - disX
           const newL : number = curX + newDisX
           getBoxLeft(newL)
         }
       }
       document.onmouseup = () => {
-        isClickList = false
+        isClickList.value = false
         document.onmousemove = null
         document.onmouseup = null
       }
     }
+    // 滑块的位置
     const getSliderLeft = (newL : number) => {
-      const max = widthInfo.lineWidth - 10
+      const max = lineWidth.value - 10
       if (newL >= max) {
-        widthInfo.sliderLeft = max
+        sliderLeft.value = max
       } else if (newL <= 0) {
-        widthInfo.sliderLeft = 0
+        sliderLeft.value = 0
       } else {
-        widthInfo.sliderLeft = newL
+        sliderLeft.value = newL
       }
       if (commonRate.value < 0) return
-      widthInfo.boxLeft = parseFloat('-' + widthInfo.sliderLeft * commonRate.value)
+      boxLeft.value = parseFloat('-' + sliderLeft.value * commonRate.value)
     }
     // 点击
     const changeSliderPosition = (e : any) => {
@@ -157,32 +158,33 @@ export default defineComponent({
 
     const scrollHandler = (e : any) => {
       e.preventDefault()
-      if (!scrollTicking) {
+      if (!scrollTicking.value) {
         requestAnimationFrame(() => {
           const wheel = e.wheelDelta || e.detail
-          const curX = widthInfo.boxLeft
+          const curX = boxLeft.value
           const newL = curX + wheel
           getBoxLeft(newL)
-          scrollTicking = false
+          scrollTicking.value = false
         })
-        scrollTicking = true
+        scrollTicking.value = true
       }
     }
 
     // 拖动滑块
     const silderMousedown  = (e : any) => {
-      isClickSlider = true
+      console.log('silderMousedown', e)
+      isClickSlider.value = true
       const disX = e.clientX
-      const curX = widthInfo.sliderLeft
+      const curX = sliderLeft.value
       document.onmousemove = e => {
-        if (isClickSlider) {
+        if (isClickSlider.value) {
           const newDisX = e.clientX - disX
           const newL = curX + newDisX
           getSliderLeft(newL)
         }
       }
       document.onmouseup = () => {
-        isClickSlider = false
+        isClickSlider.value = false
         document.onmousemove = null
         document.onmouseup = null
       }
@@ -200,7 +202,9 @@ export default defineComponent({
       silderMousedown,
       changeSliderPosition,
       scroll,
-      ...widthInfo
+
+      allWidth,
+      sliderLeft,
     }
   }
 })
@@ -208,6 +212,7 @@ export default defineComponent({
 
 <template>
   <div class="mi-timeline" ref="timeLineBox">
+    <!-- 卡片列表 -->
     <div
       class="mi-time_line_content"
       :style="{
@@ -230,6 +235,7 @@ export default defineComponent({
         </li>
       </ul>
     </div>
+    <!-- 时间轴 线条 -->
     <div class="mi-the_line_box" v-if="timeList.length > 0">
       <ul>
         <li
@@ -247,6 +253,7 @@ export default defineComponent({
           <span class="mi-line_text">{{ timeItem.time }}</span>
         </li>
       </ul>
+      <!-- 滑块 -->
       <div
         class="mi-slider"
         :style="{ transform: 'translateX(' + sliderLeft + 'px)' }"

@@ -1,11 +1,12 @@
 @import "mixins/mixins";
 @import "./var";
 
-.mi-timeline {
+@include b(timeline) {
   overflow: hidden;
 
   .mi-the_line_box {
     position: relative;
+    padding-top: 14px;
     ul {
       display: flex;
       margin-left: 0;
@@ -17,7 +18,7 @@
       height: 20px;
       position: absolute;
       left: 0;
-      top: -6px;
+      top: 6px;
       border-radius: 2px;
       cursor: pointer;
     }

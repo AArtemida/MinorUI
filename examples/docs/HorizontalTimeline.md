@@ -9,12 +9,7 @@ desc: 'desc'
 
 ### 基础用法
 
-::: warning
-
-```vue demo
-<template>
-aaa
-</template>
+```vue demo src="../components/demo/horTimeline/TimelineDemo.vue"
 ```
 
 ### Attributes
@@ -25,7 +20,7 @@ aaa
 
 ### Slots
 
-| 插槽名        | 说明           |
-| ----------- | -------------- |
-| ——          | 内嵌的列表卡片  |
-| time        | 时间轴横线      |
+| 插槽名      | 说明               |
+| ----------- | -----------------    |
+| ——          | 内嵌的列表卡片       |
+| time        | 自定义时间轴横线内容 |
