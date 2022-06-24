@@ -1,17 +1,17 @@
 @use 'mixins/mixins' as *;
-@use './var' as *;
+@use './common/var' as *;
 
 @include b(card) {
   border-radius: 3px;
-  border: 1px solid $border-color-light;
+  border: 1px solid var(--color-border)-light;
   overflow: hidden;
-  background: $bg-color;
-  box-shadow: $box-shadow-light;
+  background: var(--color-bg);
+  box-shadow: var(--color-box-shadow-light);
 
   @include e(header) {
     padding: 20px 10px 15px 10px;
     margin: 0 10px;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--color-border);
     box-sizing: border-box;
   }
 
