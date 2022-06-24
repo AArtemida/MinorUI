@@ -3,7 +3,7 @@
  * @Author: moon
  * @Date: 2021-11-30 14:21:14
  * @LastEditors: hy
- * @LastEditTime: 2022-04-24 17:31:20
+ * @LastEditTime: 2022-06-23 14:17:37
 -->
 <template>
   <div class="mi-sidebar">
@@ -31,17 +31,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import NavData from '@/nav.config.json'
 
 // console.log(NavData)
-export default defineComponent({
-  name: 'Sidebar',
-  setup() {
-    return { sidebarList: NavData }
-  },
-})
+const sidebarList: any = NavData
 </script>
 
 <style lang="scss" scoped>

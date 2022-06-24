@@ -3,7 +3,7 @@
  * @Author: moon
  * @Date: 2021-11-25 11:45:08
  * @LastEditors: hy
- * @LastEditTime: 2022-04-24 10:00:23
+ * @LastEditTime: 2022-06-23 11:42:11
  */
 import type { UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -33,7 +33,7 @@ const config: UserConfig = {
         plugins: [...containers],
       },
       highlight: {
-        theme: 'one-dark',
+        theme: 'one-light',
       },
     }),
     vue({

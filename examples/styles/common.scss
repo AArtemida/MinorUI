@@ -59,6 +59,11 @@ ul {
     margin-bottom: 20px;
   }
 }
+.hljs--one-light.hljs {
+  border-radius: 4px;
+  background-color: #fafafa;
+  border: 1px solid #eaeefb;
+}
 
 /*滚动条样式 webkit有效*/
 ::-webkit-scrollbar {

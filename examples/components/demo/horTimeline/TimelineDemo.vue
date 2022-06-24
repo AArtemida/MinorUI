@@ -1,10 +1,3 @@
-<!--
- * @Description:
- * @Author: hy
- * @Date: 2022-04-24 17:33:56
- * @LastEditors: hy
- * @LastEditTime: 2022-04-24 17:37:38
--->
 <template>
   <mi-hor-timeline :list="data">
     <template #default="{ item }">

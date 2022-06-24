@@ -1,10 +1,3 @@
-<!--
- * @Description:
- * @Author: hy
- * @Date: 2021-12-15 17:33:13
- * @LastEditors: hy
- * @LastEditTime: 2022-04-24 10:21:38
--->
 <template>
   <mi-virtual-scroll :list="list" rows=50 height=600>
     <template #default="{ item }">

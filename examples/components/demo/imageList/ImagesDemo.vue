@@ -1,10 +1,3 @@
-<!--
- * @Description:
- * @Author: hy
- * @Date: 2021-12-15 17:33:13
- * @LastEditors: hy
- * @LastEditTime: 2022-04-24 16:57:48
--->
 <template>
   <div>
     <mi-image-list :img-list="list"></mi-image-list>

@@ -3,7 +3,7 @@
  * @Author: moon
  * @Date: 2021-11-26 14:29:01
  * @LastEditors: hy
- * @LastEditTime: 2022-04-24 09:58:03
+ * @LastEditTime: 2022-06-23 16:09:05
 -->
 <template>
   <canvas ref="canvas" class="canvas-bg" width="100%" height="100%"></canvas>
@@ -11,7 +11,7 @@
     <h1>Minor UI</h1>
     <h2 class="mi-desc">这是一个vue3功能组件库</h2>
     <p>
-      <router-link to="introduce">
+      <router-link to="install">
         <button class="mi-btn">快速开始</button>
       </router-link>
     </p>

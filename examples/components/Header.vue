@@ -3,7 +3,7 @@
  * @Author: moon
  * @Date: 2021-11-29 10:49:14
  * @LastEditors: hy
- * @LastEditTime: 2022-04-24 10:07:53
+ * @LastEditTime: 2022-06-23 16:09:30
 -->
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -49,6 +49,9 @@ $white: #fff;
   justify-content: space-between;
   a {
     color: $white;
+  }
+  .mi-logo {
+    font-weight: 700;
   }
   .mi-nav-item {
     font-size: 14px;

@@ -3,6 +3,7 @@
 
 @include b(images) {
   position: relative;
+  overflow: hidden;
   @include e(content) {
     display: flex;
     transition: all 0.3s;

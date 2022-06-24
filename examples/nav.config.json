@@ -1,13 +1,6 @@
 {
   "指南": [
     {
-      "path": "introduce",
-      "name": "introduce",
-      "meta": {
-        "title": "介绍"
-      }
-    },
-    {
       "name": "install",
       "path": "install",
       "meta": {
@@ -26,13 +19,6 @@
       "name": "theme",
       "meta": {
         "title": "自定义主题"
-      }
-    },
-    {
-      "name": "logs",
-      "path": "logs",
-      "meta": {
-        "title": "更新日志"
       }
     }
   ],
