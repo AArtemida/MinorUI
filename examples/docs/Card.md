@@ -29,10 +29,6 @@ desc: 'desc'
 </template>
 ```
 
-222222
-```vue demo src="../components/HelloWorld.vue"
-```
-
 ### Slots
 
 | 插槽名        | 说明           |

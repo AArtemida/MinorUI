@@ -24,7 +24,6 @@ routePages.forEach((r : any) => {
     pages.push(r)
   }
 })
-
 const routes: Array<RouteRecordRaw> = [
   /*{
     path: '',

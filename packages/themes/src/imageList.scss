@@ -32,6 +32,7 @@
     height: 140px;
     display: flex;
     flex-direction: column;
+    background: var(--color-primary);
     & + .mi-images__item {
       margin-left: 10px;
     }

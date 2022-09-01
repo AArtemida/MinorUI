@@ -1,7 +1,26 @@
-# Vue 3 + Vite
+# Minorui (A work in progress)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+A Vue UI component library with a minimal design. 
 
-## Recommended IDE Setup
+## Installation
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+Install `v-minor-ui` using [yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/):
+
+```bash
+# Using NPM
+npm install --save v-minor-ui
+
+# Using Yarn
+yarn add v-minor-ui
+```
+## Usage
+
+```js
+import { Card } from 'v-minor-ui';
+
+// ...
+
+<Card>
+  Hello World
+</Card>
+```

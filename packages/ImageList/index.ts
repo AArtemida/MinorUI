@@ -7,11 +7,12 @@
  */
 import type { App } from "vue";
 import ImageList from "./Index.vue";
-import { SFCWithInstall } from "../types";
+// import { SFCWithInstall } from "../types";
 
 // 安装
 ImageList.install = (app: App): void => {
-  app.component(ImageList.name, ImageList);
+  app.component(ImageList.name || 'MiImageList', ImageList)
 };
-const MiImageList: SFCWithInstall<typeof ImageList> = ImageList; // 增加类型
+// const MiImageList: SFCWithInstall<typeof ImageList> = ImageList; // 增加类型
+const MiImageList = ImageList
 export default MiImageList;

@@ -27,10 +27,11 @@
     display: inline-block;
     margin-right: 10px;
     .mi-line_fill {
-      background: rgba(var(--color-primary), 0.1);
+      background: var(--color-primary);
       border-radius: 3px;
       height: 6px;
       width: 100%;
+      opacity: 0.2;
     }
     .mi-line_text {
       font-size: 12px;

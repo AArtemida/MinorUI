@@ -225,7 +225,7 @@ export default defineComponent({
         v-for="(timeItem, timeIndex) in timeList"
         :key="'timeline_ul' + timeItem.time + timeIndex"
         class="mi-time_item_box"
-        :ref="setTimeItemRef"
+        ref="setTimeItemRef"
       >
         <li
           v-for="(item, index) in list[timeItem.time]"

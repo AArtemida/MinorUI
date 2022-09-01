@@ -1,11 +1,11 @@
 {
   // "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "include": ["./**/*.ts", "examples/**/*.vue", "packages", "vite.config.ts", "./**/*.md"],
+  "include": ["./**/*.ts", "examples/**/*.vue", "packages", "vite.config.ts", "./**/*.md", "rollup.config.js"],
   "exclude": ["node_modules", "**/__test?__", "**/dist"],
   "compilerOptions": {
     "jsx":  "preserve",
     "target": "esnext" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
-    "module": "commonjs" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
+    "module": "ESNext" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
     "lib": ["esnext", "dom"] /* Specify library files to be included in the compilation. */,
     // "declaration": true /* Generates corresponding '.d.ts' file. */,
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */

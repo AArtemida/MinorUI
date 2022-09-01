@@ -6,3 +6,4 @@ dist-ssr
 .history
 dist.zip
 .vscode
+yarn-error.log

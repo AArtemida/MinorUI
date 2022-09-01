@@ -1,5 +1,5 @@
 {
-  "name": "minor-ui",
+  "name": "v-minor-ui",
   "version": "1.0.0",
   "main": "dist/lib/minorUi.js",
   "scripts": {
@@ -7,22 +7,33 @@
     "build": "yarn clean && yarn build:theme && yarn build:package",
     "serve": "vite preview",
     "test": "jest --runInBand",
-    "lib": "vite build --target lib --name minor-ui --dest lib packages/index.ts",
+    "lib": "vite build --target lib --name v-minor-ui --dest lib packages/index.ts",
     "build:theme": "gulp build --gulpfile packages/themes/gulpfile.js",
     "build:package": "rollup -c rollup.config.js",
     "clean": "rimraf ./lib ./dist"
   },
+  "keywords": [
+    "vue3",
+    "vite",
+    "component",
+    "ui"
+  ],
   "resolutions": {
     "node-sass": "npm:sass@1.43.5"
   },
   "dependencies": {
+    "@types/markdown-it-container": "^2.0.5",
     "markdown-it-container": "^3.0.0",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.13",
     "@babel/plugin-proposal-optional-chaining": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-image": "^2.1.1",
     "@vitejs/plugin-vue": "^1.9.3",
     "@vue/babel-plugin-jsx": "^1.1.1",
     "@vue/compiler-sfc": "^3.2.23",
@@ -43,10 +54,11 @@
     "gulp-sass": "^5.0.0",
     "jest": "^27.3.1",
     "prettier": "^2.4.1",
-    "rollup": "^2.60.1",
     "rollup-plugin-esbuild": "^4.7.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-scss": "^3.0.0",
     "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.33.0",
     "rollup-plugin-vue": "^6.0.0",
     "sass": "^1.43.5",
     "typescript": "^4.5.2",
