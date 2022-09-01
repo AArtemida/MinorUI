@@ -7,11 +7,12 @@
  */
 import type { App } from "vue";
 import Card from "./card.vue";
-import { SFCWithInstall } from "../types";
+// import { SFCWithInstall } from "../types";
 
 // 安装
 Card.install = (app: App): void => {
-  app.component(Card.name, Card);
+  app.component(Card.name || 'MiCard', Card)
 };
-const MiCard: SFCWithInstall<typeof Card> = Card; // 增加类型
+// const MiCard: SFCWithInstall<typeof Card> = Card; // 增加类型
+const MiCard = Card
 export default MiCard;

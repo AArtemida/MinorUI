@@ -32,10 +32,27 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import NavData from '@/nav.config.json'
 
 // console.log(NavData)
 const sidebarList: any = NavData
+
+const route = useRoute()
+const activeIndex = ref(route.path)
+
+/* 路由 */
+watch(
+  () => route.path,
+  n => {
+    activeIndex.value = n.toLowerCase()
+  }
+)
+
+const handleSelect = (key: string) => {
+  activeIndex.value = key
+}
 </script>
 
 <style lang="scss" scoped>
@@ -45,7 +62,7 @@ $fontColor6: #666;
   text-align: left;
   font-size: 14px;
   width: 180px;
-  border-right: 1px solid rgba($primary, .3);
+  border-right: 1px solid rgba($primary, 0.3);
   height: 100%;
   flex: none;
   position: fixed;
@@ -74,8 +91,12 @@ $fontColor6: #666;
     white-space: normal;
     box-sizing: border-box;
     &:hover {
-      background: rgba(208,228,245);
+      background: rgba(208, 228, 245);
     }
   }
+}
+.router-link-active {
+  background: #d0e4f5;
+  color: $primary !important;
 }
 </style>

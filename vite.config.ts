@@ -41,8 +41,8 @@ const config: UserConfig = {
     }),
     Pages({
       pagesDir: [
-        { dir: "examples/pages", baseRoute: "" },
-        { dir: "examples/docs", baseRoute: "doc/" },
+        { dir: 'examples/pages', baseRoute: '' },
+        { dir: 'examples/docs', baseRoute: 'doc/' },
       ],
       extensions: ['vue', 'md'],
       importMode: 'async',
@@ -54,8 +54,23 @@ const config: UserConfig = {
       '@': path.resolve(__dirname, './examples'),
       '@docs': path.resolve(__dirname, './examples/docs'),
       '@components': path.resolve(__dirname, './examples/components'),
-      "~": path.resolve(__dirname, "./packages"),
-      vue: "vue/dist/vue.esm-bundler.js"
+      '~': path.resolve(__dirname, './packages'),
+      vue: 'vue/dist/vue.esm-bundler.js',
+    },
+  },
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, 'src/packages/index.ts'),
+      name: 'v-minor-ui',
+      fileName: format => `lib.${format}.js`,
+    },
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        globals: {
+          vue: 'Vue',
+        },
+      },
     },
   },
 }

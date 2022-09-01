@@ -7,11 +7,12 @@
  */
 import type { App } from "vue";
 import HorizontalTimeline from "./Index.vue";
-import { SFCWithInstall } from "../types";
+// import { SFCWithInstall } from "../types";
 
 // 安装
 HorizontalTimeline.install = (app: App): void => {
-  app.component(HorizontalTimeline.name, HorizontalTimeline);
+  app.component(HorizontalTimeline.name || 'MiHorTimeline', HorizontalTimeline)
 };
-const MiHorTimeline: SFCWithInstall<typeof HorizontalTimeline> = HorizontalTimeline; // 增加类型
+// const MiHorTimeline: SFCWithInstall<typeof HorizontalTimeline> = HorizontalTimeline; // 增加类型
+const MiHorTimeline = HorizontalTimeline
 export default MiHorTimeline;
