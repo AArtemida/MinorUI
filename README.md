@@ -1,9 +1,7 @@
 # Minorui (A work in progress)
-
 A Vue UI component library with a minimal design. 
 
 ## Installation
-
 Install `v-minor-ui` using [yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/):
 
 ```bash
@@ -14,13 +12,17 @@ npm install --save v-minor-ui
 yarn add v-minor-ui
 ```
 ## Usage
-
 ```js
-import { Card } from 'v-minor-ui';
+// main.ts
+import 'v-minor-ui/lib/themes/index.css'
+import MinorUi from 'v-minor-ui'
+app.use(MinorUi)
+
+// component
+import { MiCard } from 'v-minor-ui';
 
 // ...
-
-<Card>
-  Hello World
-</Card>
+<mi-card>
+  这是卡片内容
+</mi-card>
 ```

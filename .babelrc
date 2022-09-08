@@ -1,5 +1,5 @@
 {
-  "presets": [["@babel/preset-env", { "targets": { "node": "current" } }]],
+  "presets": [["@babel/preset-env", { "targets": { "node": "current","modules": false } }]],
   "plugins": [
     "syntax-dynamic-import",
     ["@vue/babel-plugin-jsx"],
@@ -39,5 +39,8 @@
     "esm": {
       "presets": [["@babel/preset-env", { "modules": false }]]
     }
-  }
+  },
+  "ignore": [
+    "node_modules/**"
+  ]
 }
