@@ -14,7 +14,7 @@ yarn add v-minor-ui
 ## Usage
 ```js
 // main.ts
-import 'v-minor-ui/lib/minorUi.css';
+import 'v-minor-ui/lib/themes/index.css'
 import MinorUi from 'v-minor-ui'
 app.use(MinorUi)
 

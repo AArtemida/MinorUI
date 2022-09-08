@@ -16,7 +16,7 @@ import { terser } from 'rollup-plugin-terser'
 //
 import nodeResolve from 'rollup-plugin-node-resolve'
 import typescript from 'rollup-plugin-typescript2'
-import babel from 'rollup-plugin-babel'
+// import babel from 'rollup-plugin-babel'
 
 const overrides = {
   compilerOptions: { declaration: true }, // 是否创建 typescript 声明文件
@@ -37,11 +37,11 @@ export default {
         vue: 'Vue',
       },
       name: 'minorUi',
-      file: 'lib/minorUi.es.js',
+      file: 'lib/minorUi.js',
       format: 'es',
       plugins: [terser()],
     },
-    {
+    /*{
       globals: {
         vue: 'Vue',
       },
@@ -49,7 +49,7 @@ export default {
       file: 'lib/minorUi.js',
       format: 'cjs',
       plugins: [terser()],
-    },
+    },*/
     {
       globals: {
         vue: 'Vue',
@@ -71,9 +71,9 @@ export default {
       include: /\.vue$/,
     }),
     typescript({ tsconfigOverride: overrides }),
-    babel({
-      exclude: 'node_modules/**',
-    }),
+    // babel({
+    //   exclude: 'node_modules/**',
+    // }),
     esbuild({
       include: /\.[jt]s$/,
       minify: process.env.NODE_ENV === 'production',
