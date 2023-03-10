@@ -23,19 +23,21 @@ export default defineComponent({
 
 <template>
   <header class="mi-header">
-    <router-link to="/" class="mi-logo">Minor UI</router-link>
+    <div class="mi-header__content">
+      <router-link to="/" class="mi-logo">Minor UI</router-link>
 
-    <nav>
-      <a>{{ n }}</a>
-      <router-link
-        v-for="(label, nav) in navs"
-        :key="'nav_' + nav"
-        :to="{ path: nav }"
-        class="mi-nav-item"
-      >
-        {{ label }}
-      </router-link>
-    </nav>
+      <nav>
+        <a>{{ n }}</a>
+        <router-link
+          v-for="(label, nav) in navs"
+          :key="'nav_' + nav"
+          :to="{ path: nav }"
+          class="mi-nav-item"
+        >
+          {{ label }}
+        </router-link>
+      </nav>
+    </div>
   </header>
 </template>
 
@@ -45,8 +47,12 @@ $white: #fff;
 .mi-header {
   background: linear-gradient(to left, #7b4397, $primary);
   padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
+  .mi-header__content {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
   a {
     color: $white;
   }

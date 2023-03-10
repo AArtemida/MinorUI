@@ -5,12 +5,13 @@
  * @LastEditors: hy
  * @LastEditTime: 2021-11-30 16:20:59
  */
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 import routePages from 'virtual:generated-pages'
 
-let docs : Array<any> = routePages.filter((r : any) => {
+let docs : Array<RouteRecordRaw> = routePages.filter((r : RouteRecordRaw) => {
   return r.path && r.path.includes('doc/')
-}).map((r : any) => {
+}).map((r : RouteRecordRaw) => {
   let o = Object.assign({}, r)
   o.path = o.path.replace('/doc', '')
   return o

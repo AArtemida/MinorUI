@@ -7,6 +7,7 @@
 -->
 <script lang="ts">
 import { defineComponent, computed, ref, onMounted, nextTick } from 'vue'
+import type { Ref } from 'vue'
 
 export default defineComponent({
   name: 'MiImageList',
@@ -21,9 +22,9 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    let nextNumber: any = ref(0)
+    let nextNumber: Ref<number> = ref(0)
     const imagesBoxRef = ref<HTMLDivElement | null>(null)
-    let curTotal: any = ref(0)
+    let curTotal: Ref<number> = ref(0)
 
     // 计算一屏最大显示个数
     onMounted(() => {

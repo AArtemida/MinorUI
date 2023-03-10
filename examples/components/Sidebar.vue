@@ -50,9 +50,9 @@ watch(
   }
 )
 
-const handleSelect = (key: string) => {
-  activeIndex.value = key
-}
+// const handleSelect = (key: string) => {
+//   activeIndex.value = key
+// }
 </script>
 
 <style lang="scss" scoped>
@@ -61,7 +61,7 @@ $fontColor6: #666;
 .mi-sidebar {
   text-align: left;
   font-size: 14px;
-  width: 180px;
+  width: 15%;
   border-right: 1px solid rgba($primary, 0.3);
   height: 100%;
   flex: none;
@@ -90,6 +90,7 @@ $fontColor6: #666;
     word-break: break-word;
     white-space: normal;
     box-sizing: border-box;
+    border-radius: 8px;
     &:hover {
       background: rgba(208, 228, 245);
     }

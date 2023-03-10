@@ -24,11 +24,45 @@ export const drawCanvas = () => {
     let canvasBg = new starCanvas(canvasDom.width, canvasDom.height, ctx)
     canvasBg.init()
 
-		canvasDom.onmousemove = function(e){
+    canvasDom.onmousemove = function (e: MouseEvent) {
       canvasBg.update(e)
-		}
+    }
   })
   return { canvas }
+}
+
+/** 星星 */
+interface StarModel {
+  id: number
+  x: number
+  y: number
+  r: number
+  color: string
+  ctx: CanvasRenderingContext2D
+  height: number
+  draw(): void
+  move(): void
+}
+
+/** 点点 */
+interface DotModel {
+  id: number
+  x: number
+  y: number
+  r: number
+  maxLinks: number
+  speed: number
+  a: number
+  aReduction: number
+  color: string
+  linkColor: string
+  dir: number
+  ctx: CanvasRenderingContext2D
+  dots: Array<any>
+  draw(): void
+  link(): void
+  die(): void
+  move(): void
 }
 
 const dotsMinDist: number = 2,
@@ -40,18 +74,18 @@ const dotsMinDist: number = 2,
   },
   starColor = '33,150,243',
   dotColor = '157,205,244'
-let mouseMoveChecker : any;
+let mouseMoveChecker: any
 
 class starCanvas {
   width: number
   height: number
-  ctx: any
-  stars: Array<any>
-  dots: Array<any>
+  ctx: CanvasRenderingContext2D
+  stars: Array<StarModel>
+  dots: Array<DotModel>
   mouseMoving: boolean
   mouseX: number
   mouseY: number
-  constructor(width: number, height: number, ctx: any) {
+  constructor(width: number, height: number, ctx: CanvasRenderingContext2D) {
     this.width = width
     this.height = height
     this.ctx = ctx
@@ -91,8 +125,8 @@ class starCanvas {
     }
     this.drawIfMouseMoving()
     requestAnimationFrame(() => {
-			this.animate()
-		})
+      this.animate()
+    })
   }
 
   drawIfMouseMoving() {
@@ -134,30 +168,21 @@ class starCanvas {
     this.dots[this.dots.length - 1].link()
   }
 
-	update(e : any) {
-    this.mouseMoving = true;
-		this.mouseX = e.clientX;
-		this.mouseY = e.clientY;
-		clearInterval(mouseMoveChecker);
-		mouseMoveChecker = setTimeout(() => {
-      this.mouseMoving = false;
-    }, 100);
-	}
+  update(e: MouseEvent) {
+    this.mouseMoving = true
+    this.mouseX = e.clientX
+    this.mouseY = e.clientY
+    clearInterval(mouseMoveChecker)
+    mouseMoveChecker = setTimeout(() => {
+      this.mouseMoving = false
+    }, 100)
+  }
 }
 
-
-class Star {
-  id: number
-  x: number
-  y: number
-  r: number
-  color: string
-  ctx: any
-  height: number
-
+class Star implements StarModel {
   constructor(
     star: { id: number; x: number; y: number },
-    canvas: { ctx: any; height: number }
+    canvas: { ctx: CanvasRenderingContext2D; height: number }
   ) {
     this.id = star.id
     this.x = star.x
@@ -186,7 +211,7 @@ class Star {
   }
 }
 
-function getPreviousDot(id: number, stepback: number, dots: any) {
+function getPreviousDot(id: number, stepback: number, dots: Array<DotModel>) {
   if (id == 0 || id - stepback < 0) return false
   if (typeof dots[id - stepback] != 'undefined') return dots[id - stepback]
   else return false //getPreviousDot(id - stepback);
@@ -196,24 +221,10 @@ function degToRad(deg: number) {
   return deg * (Math.PI / 180)
 }
 
-class Dot {
-  id: number
-  x: number
-  y: number
-  r: number
-  maxLinks: number
-  speed: number
-  a: number
-  aReduction: number
-  color: string
-  linkColor: string
-  dir: number
-  ctx: any
-  dots: Array<any>
-
+class Dot implements DotModel {
   constructor(
     dot: { id: number; x: number; y: number },
-    canvas: { ctx: any; dots: Array<any> }
+    canvas: { ctx: CanvasRenderingContext2D; dots: Array<DotModel> }
   ) {
     this.id = dot.id
     this.x = dot.x

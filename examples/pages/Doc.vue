@@ -32,7 +32,7 @@ export default defineComponent({
   .mi-doc-content {
     flex: 1 auto;
     padding: 20px;
-    padding-left: 200px;
+    padding-left: calc(15% + 30px);
     overflow-y: scroll;
   }
 }

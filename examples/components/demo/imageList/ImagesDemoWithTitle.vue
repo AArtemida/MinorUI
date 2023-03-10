@@ -6,7 +6,7 @@
 
 <script lang="ts">
   import { defineComponent, reactive } from "vue"
-
+  
   let list : any[] = reactive([])
   let arr = []
   for(let i = 0; i < 20; i++) {
