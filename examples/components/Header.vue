@@ -27,7 +27,6 @@ export default defineComponent({
       <router-link to="/" class="mi-logo">Minor UI</router-link>
 
       <nav>
-        <a>{{ n }}</a>
         <router-link
           v-for="(label, nav) in navs"
           :key="'nav_' + nav"

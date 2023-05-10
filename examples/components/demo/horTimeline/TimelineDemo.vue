@@ -1,5 +1,5 @@
 <template>
-  <mi-hor-timeline :list="data">
+  <mi-hor-timeline :data="data">
     <template #default="{ item }">
       <div class="timeline-demo___item">{{ item }}</div>
     </template>
@@ -7,14 +7,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "vue"
+  import { defineComponent, reactive } from "vue"
 
-  let data : Object = {
+  let data = reactive({
     2019: ['卡片1', '卡片2'],
     2020: ['卡片3'],
     2021: ['卡片4', '卡片5', '卡片6'],
     2022: ['卡片7', '卡片8']
-  }
+  })
   export default defineComponent({
     name: 'TimelineDemo',
     setup(props, context) {

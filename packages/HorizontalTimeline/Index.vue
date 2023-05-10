@@ -6,7 +6,7 @@
  * @LastEditTime: 2022-04-25 09:48:51
 -->
 <script lang="ts">
-import { defineComponent, ref, onMounted, nextTick, computed } from 'vue'
+import { defineComponent, ref, onMounted, nextTick, computed, watchEffect } from 'vue'
 import type { Ref } from 'vue'
 
 type timeType = number | string
@@ -17,7 +17,7 @@ interface ListModel {
 export default defineComponent({
   name: 'MiHorTimeline',
   props: {
-    list: {
+    data: {
       type: Object,
       default: () => {},
     },
@@ -34,8 +34,8 @@ export default defineComponent({
 
     let timeLineBox = ref<HTMLDivElement | null>(null)
 
-    let timeItems = ref([])
-    const setTimeItemRef = (el: HTMLElement) => {
+    let timeItems = ref<any>([])
+    let setTimeItemRef = (el: HTMLElement) => {
       // 断言为HTMLElement类型的数组
       ;(timeItems.value as Array<HTMLElement>).push(el)
     }
@@ -47,10 +47,17 @@ export default defineComponent({
         scroll()
       })
     })
+
+    watchEffect(() => {
+      nextTick(() => {
+        getAllWidth()
+      })
+    })
+
     // 计算属性
     const timeList = computed(() => {
       let res: Array<any> = []
-      let list: ListModel = props.list
+      let list: ListModel = props.data
       const times = Object.keys(list).sort(
         (a: any, b: any): any => {
           return b - a
@@ -94,7 +101,14 @@ export default defineComponent({
           w += dom.offsetWidth
         })
         allWidth.value = w
-      }
+      } 
+      // else {
+      //   const list = Object.values(props.data).flat()
+      //   list.forEach(() => {
+      //     w += 312
+      //   })
+      //   allWidth.value = w
+      // }
       const wrapRef = timeLineBox.value
       if (wrapRef) {
         lineWidth.value = wrapRef?.offsetWidth || 0
@@ -181,7 +195,6 @@ export default defineComponent({
 
     // 拖动滑块
     const silderMousedown = (e: MouseEvent) => {
-      console.log('silderMousedown', e)
       isClickSlider.value = true
       const disX = e.clientX
       const curX = sliderLeft.value
@@ -234,10 +247,10 @@ export default defineComponent({
         v-for="(timeItem, timeIndex) in timeList"
         :key="'timeline_ul' + timeItem.time + timeIndex"
         class="mi-time_item_box"
-        ref="setTimeItemRef"
+        :ref="(el) => setTimeItemRef(el)"
       >
         <li
-          v-for="(item, index) in list[timeItem.time]"
+          v-for="(item, index) in data[timeItem.time]"
           :key="'timeline_li' + index + timeItem.time"
         >
           <slot :item="item" :index="index"></slot>
