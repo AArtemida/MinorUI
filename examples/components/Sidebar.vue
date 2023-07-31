@@ -35,9 +35,10 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import NavData from '@/nav.config.json'
+import { NavModel } from '@/model/NavModel'
 
 // console.log(NavData)
-const sidebarList: any = NavData
+const sidebarList: NavModel = NavData
 
 const route = useRoute()
 const activeIndex = ref(route.path)
@@ -62,11 +63,15 @@ $fontColor6: #666;
   text-align: left;
   font-size: 14px;
   width: 15%;
-  border-right: 1px solid rgba($primary, 0.3);
   height: 100%;
   flex: none;
   position: fixed;
   overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+  border: 0;
+  padding: 0 15px;
+  box-sizing: border-box;
+  background: #fff;
   a {
     display: inline-block;
     color: $fontColor6;
@@ -91,6 +96,7 @@ $fontColor6: #666;
     white-space: normal;
     box-sizing: border-box;
     border-radius: 8px;
+    margin-bottom: 8px;
     &:hover {
       background: rgba(208, 228, 245);
     }
