@@ -14,6 +14,8 @@ import markdownItContainer from 'markdown-it-container'
 import Pages from "vite-plugin-pages"
 // 部分组件库自动按需引入组件
 // import ViteComponents from 'vite-plugin-components'
+// name
+import DefineOptions from 'unplugin-vue-define-options/vite';
 
 const path = require('path')
 const containers = ['success', 'warning', 'error'].map(type => {
@@ -47,7 +49,8 @@ const config: UserConfig = {
       extensions: ['vue', 'md'],
       importMode: 'async',
     }),
-    // ViteComponents()
+    // ViteComponents(),
+    DefineOptions()
   ],
   resolve: {
     alias: {
