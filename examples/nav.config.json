@@ -27,7 +27,8 @@
       "meta": {
         "title": "基础组件"
       },
-      "items": [{
+      "items": [
+        {
           "meta": {
             "title": "Card 卡片"
           },
@@ -41,6 +42,13 @@
         "title": "业务组件"
       },
       "items": [
+        {
+          "meta": {
+            "title": "Article 文章卡片"
+          },
+          "path": "Article",
+          "name": "Article"
+        },
         {
           "meta": {
             "title": "ImageList 图片列表"

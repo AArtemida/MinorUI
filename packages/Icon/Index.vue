@@ -1,5 +1,5 @@
 <template>
-  <i class="iconfont mi-icon" :class="iconTag">
+  <i class="mi-icon" :class="iconTag">
     <slot></slot>
   </i>
 </template>

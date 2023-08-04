@@ -24,11 +24,13 @@ body {
   text-align: left;
   height: calc(100% - 55px);
 }
-.main-container {
-  h1, h2, h3 {
+.vuedoc {
+  > h1, > h2, > h3 {
     color: $primary;
     margin: 20px 0;
   }
+}
+.main-container {
   p, ul, ol {
     margin: 0;
     padding: 0;
