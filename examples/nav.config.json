@@ -34,6 +34,13 @@
           },
           "path": "card",
           "name": "card"
+        },
+        {
+          "meta": {
+            "title": "Image 图片"
+          },
+          "path": "image",
+          "name": "image"
         }
       ]
     },

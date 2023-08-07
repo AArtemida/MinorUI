@@ -4,21 +4,17 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, reactive } from "vue"
+<script lang="ts" setup>
+  import { reactive } from "vue"
 
   let list : string[] = reactive([])
   let arr = []
   for(let i = 0; i < 20; i++) {
-    arr.push('https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg')
+    if(i % 2) {
+      arr.push('https://tse3-mm.cn.bing.net/th/id/OIP-C.PY7v2oONjKWO8VM7pHJ85wHaIK?w=180&h=198&c=7&r=0&o=5&pid=1.7')
+    } else {
+      arr.push('https://tse2-mm.cn.bing.net/th/id/OIP-C.xYVe8aav6Ujm_4nvLofJ6QHaID?w=192&h=209&c=7&r=0&o=5&pid=1.7')
+    }
   }
   list = arr
-  export default defineComponent({
-    name: 'ImagesDemo',
-    setup(props, context) {
-      return {
-        list
-      }
-    }
-  })
 </script>

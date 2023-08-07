@@ -7,7 +7,7 @@ desc: 'desc'
 # ImageList 图片列表
 一个简单的图片列表组件，支持传入图片列表，左右点击可滚动列表。
 
-## 基础用法
+### 基础用法
 
 ```vue demo src="../components/demo/imageList/ImagesDemo.vue"
 ```
@@ -29,4 +29,5 @@ desc: 'desc'
 
 | 插槽名      | 说明           |
 | ----------- | -------------- |
+| image       | 图片区域       |
 | label       | 自定义标题栏   |
