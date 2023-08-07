@@ -9,11 +9,12 @@ import type { App } from "vue"
 
 /* 基础组件 */
 import MiCard from "./Card"
-import MiImageList from "./ImageList"
-import MiArticle from "./Article"
 import MiIcon from "./Icon"
+import MiImage from "./Image"
 
 /* 功能组件 */
+import MiImageList from "./ImageList"
+import MiArticle from "./Article"
 import MiVirtualScroll from "./VirtualScroll"
 import MiHorTimeline from "./HorizontalTimeline"
 
@@ -23,7 +24,8 @@ const components: any[] = [
   MiVirtualScroll,
   MiHorTimeline,
   MiArticle,
-  MiIcon
+  MiIcon,
+  MiImage
 ]
 // 需要添加到 VUE 实例的 API
 // const API = { Toast, MessageBox };
@@ -48,7 +50,8 @@ export {
   MiVirtualScroll,
   MiHorTimeline,
   MiArticle,
-  MiIcon
+  MiIcon,
+  MiImage
 }
 
 // 全部导出
