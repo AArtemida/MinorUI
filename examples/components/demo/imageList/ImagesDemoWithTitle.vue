@@ -6,11 +6,7 @@
 
 <script lang="ts" setup>
   import { reactive } from "vue"
-
-  interface ImageItem {
-    src: string;
-    label?: string;
-  }
+  import { ImageItem } from '@/model/ImageModel'
   
   let list : ImageItem[] = reactive([])
   let arr = []
