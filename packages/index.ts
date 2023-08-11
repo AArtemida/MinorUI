@@ -17,6 +17,8 @@ import MiImageList from "./ImageList"
 import MiArticle from "./Article"
 import MiVirtualScroll from "./VirtualScroll"
 import MiHorTimeline from "./HorizontalTimeline"
+import MiGallery from "./Gallery"
+import MiAddRows from "./AddRows"
 
 const components: any[] = [
   MiCard,
@@ -25,7 +27,9 @@ const components: any[] = [
   MiHorTimeline,
   MiArticle,
   MiIcon,
-  MiImage
+  MiImage,
+  MiGallery,
+  MiAddRows
 ]
 // 需要添加到 VUE 实例的 API
 // const API = { Toast, MessageBox };
@@ -51,7 +55,9 @@ export {
   MiHorTimeline,
   MiArticle,
   MiIcon,
-  MiImage
+  MiImage,
+  MiGallery,
+  MiAddRows
 }
 
 // 全部导出

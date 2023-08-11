@@ -23,7 +23,7 @@
           :key="'mi_image_list_' + img"
           :style="customStyle"
         >
-          <div class="mi-images__src">
+          <div class="mi-images__src" @click="imgClick(img)">
             <slot name="image">
               <!-- <img :src="img.src || img" alt="img" /> -->
               <mi-image :src="img.src || img"></mi-image>
@@ -53,8 +53,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, onMounted, nextTick, PropType } from 'vue'
-import type { Ref, CSSProperties } from 'vue'
+import { computed, ref, onMounted, nextTick } from 'vue'
+import type { Ref, CSSProperties, PropType } from 'vue'
 
 defineOptions({
   name: 'MiImageList',
@@ -139,7 +139,7 @@ function changeScroll(isNext: boolean) {
 // 滚动
 let scrollTicking: Ref<boolean> = ref(false)
 const scrollHandler = (e: Event) => {
-  const contentRef: HTMLDivElement = imagesContentRef.value as HTMLDivElement
+  const contentRef = imagesContentRef.value
   const step: number = imgWidth.value
   if (!scrollTicking.value) {
     requestAnimationFrame(() => {
@@ -161,5 +161,12 @@ const mousewheel = (e: Event) => {
     })
     scrollTicking.value = true
   }
+}
+
+const emits = defineEmits({
+  'img-click': (img: ImageItem | string) => true,
+})
+const imgClick = (img: ImageItem | string) => {
+  emits('img-click', img)
 }
 </script>
