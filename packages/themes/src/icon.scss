@@ -13,6 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-queren:before {
+  content: "\e64b";
+}
+
+.icon-cuo:before {
+  content: "\e63d";
+}
+
 .icon-bianji:before {
   content: "\e600";
 }
@@ -84,4 +92,3 @@
 .icon-xiangxia:before {
   content: "\e637";
 }
-
