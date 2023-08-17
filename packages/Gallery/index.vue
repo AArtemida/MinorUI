@@ -7,7 +7,7 @@
       @click="imgClick(img, index)"
     >
       <slot name="image">
-        <mi-image :src="img.src || img"></mi-image>
+        <mi-image :src="img.src"></mi-image>
       </slot>
 
       <div class="mi-gallery__txt" v-if="imgClass(index)">
@@ -15,11 +15,24 @@
       </div>
     </div>
   </div>
+  <template v-if="preview">
+    <ImagePreview
+      v-show="showPreview"
+      :initial-index="imageIndex"
+      :img-list="previewList"
+      @close="closePreview"
+    >
+      <div v-if="$slots.viewer">
+        <slot name="viewer"></slot>
+      </div>
+    </ImagePreview>
+  </template>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, nextTick, PropType } from 'vue'
-import type { Ref } from 'vue'
+import { ref, computed, onMounted, nextTick, unref } from 'vue'
+import type { Ref, PropType } from 'vue'
+import ImagePreview from '~/ImagePreview'
 defineOptions({
   name: 'MiGallery',
 })
@@ -30,7 +43,7 @@ interface ImageItem {
 }
 
 const props = defineProps({
-  imgList: Array as PropType<(string | ImageItem)[]>,
+  imgList: Array as PropType<(ImageItem)[]>,
   // 每项的宽度
   width: {
     type: Number,
@@ -40,6 +53,10 @@ const props = defineProps({
     type: Number,
     default: 10,
   },
+  preview: {
+    type: Boolean,
+    default: true
+  }
 })
 
 const imagesBoxRef = ref<HTMLDivElement | null>(null)
@@ -60,23 +77,37 @@ onMounted(() => {
   nextTick(() => {
     const wrapRef = imagesBoxRef.value
     const allWidth = wrapRef?.offsetWidth || 0
-    curTotal.value = Math.floor(allWidth / imgWidth.value)
+    curTotal.value = Math.floor(allWidth / unref<number>(imgWidth))
   })
 })
 
 const imgClass = function (index: number) {
-  const len = imgList.value.length
-  const remainLen = remainImgList.value.length
+  const len = unref(imgList).length
+  const remainLen = unref(remainImgList).length
   if (remainLen > 0 && index === len - 1) {
     return 'mi-gallery__more'
   }
   return ''
 }
 
+const showPreview = ref(false)
+const imageIndex = ref(0)
+
+// 点击
 const emits = defineEmits({
   'img-click': (img: ImageItem | string) => true,
 })
 const imgClick = (img: ImageItem | string, index: number) => {
+  imageIndex.value = index
+  showPreview.value = true
   emits('img-click', img)
+}
+
+// 预览
+const previewList = computed(() => {
+  return props.imgList || []
+})
+const closePreview = () => {
+  showPreview.value = false
 }
 </script>
