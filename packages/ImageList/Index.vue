@@ -12,10 +12,10 @@
     </div>
     <div
       class="mi-images__content"
-      ref="imagesContentRef"
       @scroll="scrollHandler"
       @mousewheel="mousewheel"
     >
+      <!-- ref="imagesContentRef" -->
       <ul class="mi-images__list">
         <li
           class="mi-images__item"
@@ -25,8 +25,7 @@
         >
           <div class="mi-images__src" @click="imgClick(img)">
             <slot name="image">
-              <!-- <img :src="img.src || img" alt="img" /> -->
-              <mi-image :src="img.src || img"></mi-image>
+              <mi-image :src="img.src"></mi-image>
             </slot>
           </div>
           <div class="mi-images__txt" v-if="props.showLabel">
@@ -40,21 +39,13 @@
     <div class="mi-images__btn mi-images__next" @click="next">
       <mi-icon icon="icon-xiangyou1"></mi-icon>
     </div>
-    <!-- scroll -->
-    <!-- <div class="mi-images__scroll">
-      <div class="mi-images__barM">
-        <div class="mi-images__bar" @mousedown="mousedownBar($event)">
-          <div class="l"></div>
-          <div class="r"></div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, onMounted, nextTick } from 'vue'
-import type { Ref, CSSProperties, PropType } from 'vue'
+import { computed, ref, onMounted, nextTick, unref } from 'vue'
+import type { CSSProperties, PropType } from 'vue'
+import MiIcon from '~/Icon'
 
 defineOptions({
   name: 'MiImageList',
@@ -65,7 +56,7 @@ interface ImageItem {
   label?: string
 }
 const props = defineProps({
-  imgList: Array as PropType<(string | ImageItem)[]>,
+  imgList: Array as PropType<ImageItem[]>,
   // 显示标题栏
   showLabel: Boolean,
   // 每项的宽度
@@ -78,26 +69,29 @@ const props = defineProps({
     default: 10,
   },
 })
-let nextNumber: Ref<number> = ref(0)
+let nextNumber: number = 0
 const imagesBoxRef = ref<HTMLDivElement | null>(null)
-const imagesContentRef = ref<HTMLDivElement | null>(null)
-let curTotal: Ref<number> = ref(0)
+let imagesContentRef: HTMLDivElement | null  = null
+let curTotal: number = 0
 
-const imgWidth = computed(() => props.width + (props.padding || 0))
+const imgWidth = computed<number>(() => props.width + (props.padding || 0))
 
 // 计算一屏最大显示个数
 onMounted(() => {
   nextTick(() => {
-    const wrapRef = imagesBoxRef.value
+    const wrapRef = unref<HTMLDivElement | null>(imagesBoxRef)
+    let dom = wrapRef?.querySelector(".mi-images__content")
+    imagesContentRef = dom as HTMLDivElement
     let allWidth = wrapRef?.offsetWidth || 0
-    curTotal.value = Math.floor(allWidth / imgWidth.value)
+    let w = unref<number>(imgWidth) || 1
+    curTotal = Math.floor(allWidth / w)
   })
 })
 
 // 计算属性
 // const marginLeft = computed(() => {
 //   let w = imgWidth.value
-//   return -(nextNumber.value * w)
+//   return -(nextNumber * w)
 // })
 
 const customStyle = computed<CSSProperties>(() => ({
@@ -109,25 +103,21 @@ const imgList = computed(() => props.imgList || [])
 // 下一个
 const next = () => {
   let len = props.imgList?.length || 0
-  let maxNumber = len - curTotal.value
-  let num = nextNumber.value as number
-  if (num < maxNumber) {
-    // num++
-    // nextNumber.value = num
+  let maxNumber = len - curTotal
+  if (nextNumber < maxNumber) {
     changeScroll(true)
   }
 }
 const prev = () => {
-  if (nextNumber.value > 0) {
-    // nextNumber.value--
+  if (nextNumber > 0) {
     changeScroll(false)
   }
 }
 
 function changeScroll(isNext: boolean) {
-  const contentRef: HTMLDivElement = imagesContentRef.value as HTMLDivElement
+  const contentRef = imagesContentRef as HTMLDivElement | null
   let left: number = contentRef?.scrollLeft ?? 0
-  const step: number = imgWidth.value
+  let step: number = unref<number>(imgWidth)
   if (isNext) {
     left += step
   } else {
@@ -137,36 +127,37 @@ function changeScroll(isNext: boolean) {
 }
 
 // 滚动
-let scrollTicking: Ref<boolean> = ref(false)
+let scrollTicking: boolean = false
 const scrollHandler = (e: Event) => {
-  const contentRef = imagesContentRef.value
-  const step: number = imgWidth.value
-  if (!scrollTicking.value) {
+  const contentRef = imagesContentRef as HTMLDivElement | null
+  let step: number = unref<number>(imgWidth)
+  if (!scrollTicking) {
     requestAnimationFrame(() => {
       let left: number = contentRef?.scrollLeft ?? 0
-      nextNumber.value = Math.round(left / step)
-      scrollTicking.value = false
+      nextNumber = Math.round(left / step)
+      scrollTicking = false
     })
-    scrollTicking.value = true
+    scrollTicking = true
   }
 }
 
 const mousewheel = (e: Event) => {
   e.preventDefault()
-  const wheelEvent = e as WheelEvent;
-  if (!scrollTicking.value) {
+  const wheelEvent = e as WheelEvent
+  if (!scrollTicking) {
     requestAnimationFrame(() => {
-      changeScroll(wheelEvent.deltaY > 0)
-      scrollTicking.value = false
+      const isNext: boolean = wheelEvent.deltaY > 0
+      changeScroll(isNext)
+      scrollTicking = false
     })
-    scrollTicking.value = true
+    scrollTicking = true
   }
 }
 
 const emits = defineEmits({
-  'img-click': (img: ImageItem | string) => true,
+  'img-click': (img: ImageItem) => true,
 })
-const imgClick = (img: ImageItem | string) => {
+const imgClick = (img: ImageItem) => {
   emits('img-click', img)
 }
 </script>

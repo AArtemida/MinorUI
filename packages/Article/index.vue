@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import MiIcon from '~/Icon'
 defineOptions({
   name: 'MiArticle',
 })

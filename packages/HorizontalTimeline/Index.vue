@@ -34,7 +34,8 @@
     </div>
     <!-- 时间轴 线条 -->
     <div class="mi-the_line_box" v-if="timeList.length > 0">
-      <ul @click.stop="changeSliderPosition" ref="timeLineUl">
+      <ul class="mi-timeline__lines" @click.stop="changeSliderPosition">
+        <!-- ref="timeLineUl" -->
         <li
           v-for="(timeItem, timeIndex) in timeList"
           :key="'timeline_' + timeItem.time + timeIndex"
@@ -60,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, nextTick, computed, watchEffect } from 'vue'
+import { ref, onMounted, nextTick, computed, watchEffect, unref } from 'vue'
 import type { Ref } from 'vue'
 
 type timeType = number | string
@@ -84,12 +85,12 @@ let allWidth: Ref<number> = ref(0),
   lineWidth: Ref<number> = ref(0),
   sliderLeft: Ref<number> = ref(0),
   boxLeft: Ref<number> = ref(0)
-let isClickList: Ref<boolean> = ref(false),
-  isClickSlider: Ref<boolean> = ref(false),
-  scrollTicking: Ref<boolean> = ref(false)
+let isClickList: boolean = false,
+  isClickSlider: boolean = false,
+  scrollTicking: boolean = false
 
 let timeLineBox = ref<HTMLDivElement | null>(null)
-let timeLineUl = ref<HTMLDivElement | null>(null)
+let timeLineUl: HTMLDivElement | null = null
 
 let timeItems = ref<Array<HTMLDivElement>>([])
 let setTimeItemRef = (el: HTMLElement | null) => {
@@ -102,6 +103,10 @@ onMounted(() => {
   nextTick(() => {
     // const wrapRef = timeLineBox.value,
     // timeItemRef = timeItem.value
+    const wrapRef = unref<HTMLDivElement | null>(timeLineBox)
+    let dom = wrapRef?.querySelector(".mi-timeline__lines")
+    timeLineUl = dom as HTMLDivElement
+    
     getAllWidth()
   })
 })
@@ -197,16 +202,16 @@ const getBoxLeft = (newL: number) => {
 const mousedown = (e: MouseEvent) => {
   const disX = e.clientX
   const curX = boxLeft.value
-  isClickList.value = true
+  isClickList = true
   document.onmousemove = e => {
-    if (isClickList.value) {
+    if (isClickList) {
       const newDisX: number = e.clientX - disX
       const newL: number = curX + newDisX
       getBoxLeft(newL)
     }
   }
   document.onmouseup = () => {
-    isClickList.value = false
+    isClickList = false
     document.onmousemove = null
     document.onmouseup = null
   }
@@ -226,9 +231,10 @@ const getSliderLeft = (newL: number) => {
 }
 // 点击
 const changeSliderPosition = (e: MouseEvent) => {
-  const ul: HTMLDivElement = timeLineUl.value as HTMLDivElement
-  const ulRect = ul.getBoundingClientRect();
-  const relativeX = e.clientX - ulRect.left;
+  const ul = timeLineUl
+  const ulRect = ul?.getBoundingClientRect();
+  const l : number =  ulRect?.left || 0
+  const relativeX = e.clientX - l;
   getSliderLeft(relativeX)
 }
 
@@ -240,32 +246,32 @@ const wheelHandler = (e: Event) => {
   //WheelEvent
   const wheelEvent = e as WheelEvent
   e.preventDefault()
-  if (!scrollTicking.value) {
+  if (!scrollTicking) {
     requestAnimationFrame(() => {
       const wheel = ~wheelEvent.deltaY
       const curX = boxLeft.value
       const newL = curX + wheel
       getBoxLeft(newL)
-      scrollTicking.value = false
+      scrollTicking = false
     })
-    scrollTicking.value = true
+    scrollTicking = true
   }
 }
 
 // 拖动滑块
 const silderMousedown = (e: MouseEvent) => {
-  isClickSlider.value = true
+  isClickSlider = true
   const disX = e.clientX
   const curX = sliderLeft.value
   document.onmousemove = e => {
-    if (isClickSlider.value) {
+    if (isClickSlider) {
       const newDisX = e.clientX - disX
       const newL = curX + newDisX
       getSliderLeft(newL)
     }
   }
   document.onmouseup = () => {
-    isClickSlider.value = false
+    isClickSlider = false
     document.onmousemove = null
     document.onmouseup = null
   }

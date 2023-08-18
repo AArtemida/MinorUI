@@ -14,19 +14,20 @@
         + {{ remainImgList.length }}
       </div>
     </div>
+
+    <template v-if="preview">
+      <ImagePreview
+        v-show="showPreview"
+        :initial-index="imageIndex"
+        :img-list="previewList"
+        @close="closePreview"
+      >
+        <div v-if="$slots.viewer">
+          <slot name="viewer"></slot>
+        </div>
+      </ImagePreview>
+    </template>
   </div>
-  <template v-if="preview">
-    <ImagePreview
-      v-show="showPreview"
-      :initial-index="imageIndex"
-      :img-list="previewList"
-      @close="closePreview"
-    >
-      <div v-if="$slots.viewer">
-        <slot name="viewer"></slot>
-      </div>
-    </ImagePreview>
-  </template>
 </template>
 
 <script lang="ts" setup>
@@ -43,7 +44,7 @@ interface ImageItem {
 }
 
 const props = defineProps({
-  imgList: Array as PropType<(ImageItem)[]>,
+  imgList: Array as PropType<ImageItem[]>,
   // 每项的宽度
   width: {
     type: Number,
@@ -55,8 +56,8 @@ const props = defineProps({
   },
   preview: {
     type: Boolean,
-    default: true
-  }
+    default: true,
+  },
 })
 
 const imagesBoxRef = ref<HTMLDivElement | null>(null)
@@ -95,9 +96,9 @@ const imageIndex = ref(0)
 
 // 点击
 const emits = defineEmits({
-  'img-click': (img: ImageItem | string) => true,
+  'img-click': (img: ImageItem) => true,
 })
-const imgClick = (img: ImageItem | string, index: number) => {
+const imgClick = (img: ImageItem, index: number) => {
   imageIndex.value = index
   showPreview.value = true
   emits('img-click', img)
