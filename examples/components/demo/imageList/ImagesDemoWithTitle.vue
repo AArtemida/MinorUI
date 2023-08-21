@@ -9,7 +9,7 @@
   import { ImageItem } from '@/model/ImageModel'
   
   let list : ImageItem[] = reactive([])
-  let arr = []
+  let arr : ImageItem[] = []
   for(let i = 0; i < 20; i++) {
     let item: ImageItem = {
       label: `图片${i + 1}`,

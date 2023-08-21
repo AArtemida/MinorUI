@@ -38,6 +38,7 @@
 <script lang="ts" setup>
 import { ref, computed, watch, unref } from 'vue'
 import type { Ref, PropType } from 'vue'
+import MiIcon from '~/Icon'
 
 defineOptions({
   name: 'MiImagePreview',
