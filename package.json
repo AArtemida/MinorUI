@@ -9,7 +9,7 @@
     "test": "jest --runInBand",
     "lib": "vite build --target lib --name v-minor-ui --dest lib packages/index.ts",
     "build:theme": "gulp build --gulpfile packages/themes/gulpfile.js",
-    "build:package": "rollup -c rollup.config.js",
+    "build:package": "rollup -c build/rollup.config.js",
     "clean": "rimraf ./lib ./dist"
   },
   "keywords": [
@@ -33,7 +33,6 @@
   "resolutions": {
     "node-sass": "npm:sass@1.43.5"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.19.0",
     "@babel/plugin-proposal-optional-chaining": "^7.16.0",
@@ -46,6 +45,7 @@
     "@vue/babel-plugin-jsx": "^1.1.1",
     "@vue/compiler-sfc": "^3.2.23",
     "@vue/test-utils": "^2.0.0-rc.17",
+    "@vueuse/core": "^10.3.0",
     "babel": "^6.23.0",
     "babel-jest": "^27.3.1",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
