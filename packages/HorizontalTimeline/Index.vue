@@ -61,8 +61,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, nextTick, computed, watchEffect, unref } from 'vue'
+import { ref, onMounted, nextTick, computed, watch, unref } from 'vue'
 import type { Ref } from 'vue'
+import { useResizeObserver } from '@vueuse/core'
 
 type timeType = number | string
 interface ListModel {
@@ -93,12 +94,11 @@ let timeLineBox = ref<HTMLDivElement | null>(null)
 let timeLineUl: HTMLDivElement | null = null
 
 let timeItems = ref<Array<HTMLDivElement>>([])
-let setTimeItemRef = (el: HTMLElement | null) => {
-  // 断言为HTMLElement类型的数组
-  if (el) {
-    ;(timeItems.value as Array<HTMLElement>).push(el)
+let setTimeItemRef = (el: any) => {
+  if (el && !timeItems.value.includes(el)) {
+    (timeItems.value as Array<HTMLElement>).push(el);
   }
-}
+};
 onMounted(() => {
   nextTick(() => {
     // const wrapRef = timeLineBox.value,
@@ -106,16 +106,20 @@ onMounted(() => {
     const wrapRef = unref<HTMLDivElement | null>(timeLineBox)
     let dom = wrapRef?.querySelector(".mi-timeline__lines")
     timeLineUl = dom as HTMLDivElement
-    
-    getAllWidth()
   })
+
+  useResizeObserver(timeLineBox, getAllWidth)
 })
 
-watchEffect(() => {
-  nextTick(() => {
-    getAllWidth()
-  })
-})
+watch(
+  () => props.data,
+  n => {
+    nextTick(() => {
+      getAllWidth()
+    })
+  },
+  { immediate: true, deep: true }
+)
 
 interface TimeListModel {
   len: number;

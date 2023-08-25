@@ -31,8 +31,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, nextTick, unref } from 'vue'
+import { ref, computed, onMounted, unref } from 'vue'
 import type { Ref, PropType } from 'vue'
+import { useResizeObserver } from '@vueuse/core'
 import ImagePreview from '~/ImagePreview'
 defineOptions({
   name: 'MiGallery',
@@ -52,7 +53,7 @@ const props = defineProps({
   },
   padding: {
     type: Number,
-    default: 10,
+    default: 7,
   },
   preview: {
     type: Boolean,
@@ -75,12 +76,14 @@ const remainImgList = computed(() =>
 
 // 计算一屏显示多少
 onMounted(() => {
-  nextTick(() => {
-    const wrapRef = imagesBoxRef.value
-    const allWidth = wrapRef?.offsetWidth || 0
-    curTotal.value = Math.floor(allWidth / unref<number>(imgWidth))
-  })
+  useResizeObserver(imagesBoxRef, resizeListener)
 })
+
+const resizeListener = function () {
+  const wrapRef = imagesBoxRef.value
+  const allWidth = wrapRef?.offsetWidth || 0
+  curTotal.value = Math.floor(allWidth / unref<number>(imgWidth))
+}
 
 const imgClass = function (index: number) {
   const len = unref(imgList).length

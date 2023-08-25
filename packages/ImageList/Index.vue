@@ -43,8 +43,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, onMounted, nextTick, unref } from 'vue'
+import { computed, ref, onMounted, unref } from 'vue'
 import type { CSSProperties, PropType } from 'vue'
+import { useResizeObserver } from '@vueuse/core'
 import MiIcon from '~/Icon'
 
 defineOptions({
@@ -78,15 +79,19 @@ const imgWidth = computed<number>(() => props.width + (props.padding || 0))
 
 // 计算一屏最大显示个数
 onMounted(() => {
-  nextTick(() => {
-    const wrapRef = unref<HTMLDivElement | null>(imagesBoxRef)
-    let dom = wrapRef?.querySelector(".mi-images__content")
-    imagesContentRef = dom as HTMLDivElement
-    let allWidth = wrapRef?.offsetWidth || 0
-    let w = unref<number>(imgWidth) || 1
-    curTotal = Math.floor(allWidth / w)
-  })
+  const wrapRef = unref<HTMLDivElement | null>(imagesBoxRef)
+  let dom = wrapRef?.querySelector(".mi-images__content")
+  imagesContentRef = dom as HTMLDivElement
+
+  useResizeObserver(imagesBoxRef, resizeListener)
 })
+
+const resizeListener = function () {
+  const wrapRef = unref<HTMLDivElement | null>(imagesBoxRef)
+  let allWidth = wrapRef?.offsetWidth || 0
+  let w = unref<number>(imgWidth) || 1
+  curTotal = Math.floor(allWidth / w)
+}
 
 // 计算属性
 // const marginLeft = computed(() => {
