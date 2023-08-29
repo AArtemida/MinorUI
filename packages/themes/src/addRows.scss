@@ -1,17 +1,15 @@
-@use 'mixins/mixins' as mixins;
-@use './common/var' as *;
+@import "mixins/mixins";
+@import "./common/var";
 
-@include mixins.b(rows) {
-  
-
-  @include mixins.e(item) {
+@include b(rows) {
+  @include e(item) {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
     position: relative;
   }
 
-  @include mixins.e(icon) {
+  @include e(icon) {
     color: var(--color-white);
     cursor: pointer;
     font-size: 16px;

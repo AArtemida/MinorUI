@@ -18,8 +18,8 @@ import 'v-minor-ui/lib/themes/index.css'
 import MinorUi from 'v-minor-ui'
 app.use(MinorUi)
 
-// component
-import { MiCard } from 'v-minor-ui';
+// or component
+import { MiCard } from 'v-minor-ui'
 
 // ...
 <mi-card>

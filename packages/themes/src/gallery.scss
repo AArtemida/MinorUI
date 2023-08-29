@@ -1,13 +1,13 @@
-@use 'mixins/mixins' as mixins;
-@use './common/var' as *;
+@import "mixins/mixins";
+@import "./common/var";
 
-@include mixins.b(gallery) {
+@include b(gallery) {
   position: relative;
   overflow: hidden;
   width: 100%;
   transition: all ease 0.2s;
   display: inline-block;
-  @include mixins.e(item) {
+  @include e(item) {
     float: left;
     display: inline-block;
     width: 90px;
@@ -22,7 +22,7 @@
     transition: all 0.5s;
     position: relative;
   }
-  @include mixins.e(more) {
+  @include e(more) {
     position: relative;
     &::after {
       content: ' ';
@@ -38,7 +38,7 @@
       cursor: pointer;
     }
   }
-  @include mixins.e(txt) {
+  @include e(txt) {
     z-index: 2;
     color: var(--color-white);
     position: absolute;

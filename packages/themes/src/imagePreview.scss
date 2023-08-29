@@ -1,7 +1,7 @@
-@use 'mixins/mixins' as mixins;
-@use './common/var' as *;
+@import "mixins/mixins";
+@import "./common/var";
 
-@include mixins.b(image-preview) {
+@include b(image-preview) {
   height: 100%;
   width: 100%;
   position: fixed;
@@ -11,7 +11,7 @@
   color: var(--color-white);
   background: rgba(0, 0, 0, 0.7);
 
-  @include mixins.e(img) {
+  @include e(img) {
     position: fixed;
     left: 50%;
     top: 50%;
@@ -19,7 +19,7 @@
     max-width: 95%;
     max-height: 95%;
   }
-  @include mixins.e(top) {
+  @include e(top) {
     position: absolute;
     top: 0px;
     right: 0;
@@ -30,7 +30,7 @@
     z-index: 17;
     margin-bottom: 10px;
   }
-  @include mixins.e(bottom) {
+  @include e(bottom) {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -45,7 +45,7 @@
     text-align: right;
     margin-top: 10px;
   }
-  @include mixins.e(icon) {
+  @include e(icon) {
     border-radius: 50%;
     background: rgba(143, 143, 143, 0.4);
     color: var(--color-white);
@@ -61,13 +61,13 @@
       cursor: pointer;
     }
   }
-  @include mixins.e(left) {
+  @include e(left) {
     left: 10px;
   }
-  @include mixins.e(right) {
+  @include e(right) {
     right: 10px;
   }
-  @include mixins.e(close) {
+  @include e(close) {
     position: absolute;
     cursor: pointer;
     right: 20px;
