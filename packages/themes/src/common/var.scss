@@ -1,12 +1,93 @@
+@use 'sass:math';
 @use 'sass:map';
+@use 'mixins/mixinsVar' as *;
+
+$color-primary: #2196f3 !default;
+$color-success: #20c997 !default;
+$color-info: #adb5bd !default;
+$color-warning: #ffc107 !default;
+$color-danger: #dc3545 !default;
+$color-error: #dc3545 !default;
+$color-white: #fff !default;
+$color-black: #000 !default;
+
+$theme-colors: () !default;
+$theme-colors: map.deep-merge(
+  (
+    'primary': $color-primary,
+    'success': $color-success,
+    'info': $color-info,
+    'warning': $color-warning,
+    'danger': $color-danger,
+    'white': $color-white,
+    'black': $color-black,
+  ),
+  $theme-colors
+);
+
+// font
+$text-color: () !default;
+$text-color: map.merge(
+  (
+    'primary': #303133,
+    'regular': #606266,
+    'secondary': #909399,
+    'placeholder': #a8abb2,
+    'disabled': #c0c4cc,
+  ),
+  $text-color
+);
+
+// border
+$border-color: () !default;
+$border-color: map.merge(
+  (
+    '': #dcdfe6,
+    'light': #e4e7ed,
+    'lighter': #ebeef5,
+    'extra-light': #f2f6fc,
+    'dark': #d4d7de,
+    'darker': #cdd0d6,
+  ),
+  $border-color
+);
+
+
+$border-radius: () !default;
+$border-radius: map.merge(
+  (
+    'base': 4px,
+    'small': 2px,
+    'round': 20px,
+    'circle': 100%,
+  ),
+  $border-radius
+);
+
+$font-size: () !default;
+$font-size: map.merge(
+  (
+    'extra-large': 20px,
+    'large': 18px,
+    'medium': 16px,
+    'base': 14px,
+    'small': 13px,
+    'extra-small': 12px,
+  ),
+  $font-size
+);
 
 :root {
-  --color-primary: #2196f3;
-  --color-white:#fff;
-  --color-black: #000;
+  @include set-css-var-value('color-white', $color-white);
+  @include set-css-var-value('color-black', $color-black);
+  @include set-css-var-value('color-primary', $color-primary);
+  
+  // --color-primary: #2196f3;
+  // --color-white: #fff;
+  // --color-black: #000;
   --color-border: #dcdfe6;
   --color-border-light: #e4e7ed;
   --color-bg: #fff;
-  --color-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, .12);
-  --color-image-bg: #D1EFFA;
+  --color-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.12);
+  --color-image-bg: #d1effa;
 }

@@ -14,20 +14,19 @@
         + {{ remainImgList.length }}
       </div>
     </div>
-
-    <template v-if="preview">
-      <ImagePreview
-        v-show="showPreview"
-        :initial-index="imageIndex"
-        :img-list="previewList"
-        @close="closePreview"
-      >
-        <div v-if="$slots.viewer">
-          <slot name="viewer"></slot>
-        </div>
-      </ImagePreview>
-    </template>
   </div>
+  <template v-if="preview">
+    <ImagePreview
+      v-show="showPreview"
+      :initial-index="imageIndex"
+      :img-list="previewList"
+      @close="closePreview"
+    >
+      <div v-if="$slots.viewer">
+        <slot name="viewer"></slot>
+      </div>
+    </ImagePreview>
+  </template>
 </template>
 
 <script lang="ts" setup>

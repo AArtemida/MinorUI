@@ -1,0 +1,26 @@
+@use 'config';
+
+// 混合颜色和等级
+// mix-color: white | black
+@function mixColor($color, $mix-color, $level) {
+  @return mix($mix-color, $color, math.percentage(math.div($level, 10)));
+}
+
+// join var name
+@function joinVarName($list) {
+  $name: '--';
+  @each $item in $list {
+    @if $item != '' {
+      $name: $name + $item;
+    }
+  }
+  @return $name;
+}
+
+@function getCssVarName($args...) {
+  @return joinVarName($args);
+}
+
+@function getCssVar($args...) {
+  @return var(#{joinVarName($args)});
+}

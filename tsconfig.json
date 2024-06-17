@@ -1,6 +1,6 @@
 {
   // "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "include": ["./**/*.ts", "examples/**/*.vue", "packages", "vite.config.ts", "./**/*.md", "rollup.config.js"],
+  "include": ["./**/*.ts", "examples/**/*.vue", "packages", "vite.config.ts", "./**/*.md", "build/rollup.config.js"],
   "exclude": ["node_modules", "**/__test?__", "**/dist"],
   "compilerOptions": {
     "jsx":  "preserve",
@@ -25,6 +25,7 @@
     "paths": {
       "@/*": ["examples/*"],
       "~/*": ["packages/*"],
-    }
+    },
+    "noImplicitAny": false
   }
 }

@@ -65,6 +65,20 @@
         },
         {
           "meta": {
+            "title": "Gallery 照片墙"
+          },
+          "path": "Gallery",
+          "name": "Gallery"
+        },
+        {
+          "meta": {
+            "title": "AddRows 动态行"
+          },
+          "path": "AddRows",
+          "name": "AddRows"
+        },
+        {
+          "meta": {
             "title": "VirtualScroll 虚拟滚动"
           },
           "path": "VirtualScroll",
