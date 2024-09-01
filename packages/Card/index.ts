@@ -6,7 +6,7 @@
  * @LastEditTime: 2021-11-29 15:10:31
  */
 import type { App } from "vue";
-import Card from "./card.vue";
+import Card from "./Card.vue";
 // import { SFCWithInstall } from "../types";
 
 // 安装

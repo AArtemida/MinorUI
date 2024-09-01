@@ -2,7 +2,7 @@
   <div class="mi-gallery" ref="imagesBoxRef">
     <div
       v-for="(img, index) in imgList"
-      :key="'mi_gallery_list_' + img"
+      :key="'mi_gallery_list_' + index"
       :class="['mi-gallery__item', imgClass(index)]"
       @click="imgClick(img, index)"
     >

@@ -1,5 +1,5 @@
 import type { App } from "vue";
-import Icon from "./index.vue";
+import Icon from "./Index.vue";
 
 // 安装
 Icon.install = (app: App): void => {

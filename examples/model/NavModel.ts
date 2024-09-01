@@ -10,3 +10,5 @@ interface MenuItemModel {
 export interface NavModel {
   [prop: string] : Array<MenuItemModel>
 }
+
+export type { MenuItemModel }

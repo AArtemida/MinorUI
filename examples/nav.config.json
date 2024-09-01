@@ -41,6 +41,13 @@
           },
           "path": "image",
           "name": "image"
+        },
+        {
+          "meta": {
+            "title": "Icon 图标"
+          },
+          "path": "Icon",
+          "name": "Icon"
         }
       ]
     },

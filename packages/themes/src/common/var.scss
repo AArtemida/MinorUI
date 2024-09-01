@@ -2,7 +2,7 @@
 @use 'sass:map';
 @use 'mixins/mixinsVar' as *;
 
-$color-primary: #2196f3 !default;
+$color-primary: #7c3aed !default;
 $color-success: #20c997 !default;
 $color-info: #adb5bd !default;
 $color-warning: #ffc107 !default;
@@ -82,7 +82,7 @@ $font-size: map.merge(
   @include set-css-var-value('color-black', $color-black);
   @include set-css-var-value('color-primary', $color-primary);
   
-  // --color-primary: #2196f3;
+  // --color-primary: #7c3aed;
   // --color-white: #fff;
   // --color-black: #000;
   --color-border: #dcdfe6;

@@ -17,6 +17,23 @@ desc: 'desc'
 </template>
 ```
 
+### 懒加载
+
+开启 `lazy` 后，图片进入可视区域才会开始加载。
+
+```vue demo
+<template>
+  <div>
+    <div style="height: 600px; line-height: 600px; text-align: center; color: #999;">
+      向下滚动，图片进入可视区后才开始加载
+    </div>
+    <div style="width: 200px; height: 200px;">
+      <mi-image lazy src="https://tse2-mm.cn.bing.net/th/id/OIP-C.xYVe8aav6Ujm_4nvLofJ6QHaID?w=192&h=209&c=7&r=0&o=5&pid=1.7"></mi-image>
+    </div>
+  </div>
+</template>
+```
+
 ### Attributes
 
 | 参数     | 说明                 | 类型     | 可选值 | 默认值   |

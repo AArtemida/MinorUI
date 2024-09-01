@@ -21,7 +21,7 @@
         <mi-icon
           class="mi-rows__icon"
           icon="icon-jia"
-          v-if="index == 0"
+          v-if="index === 0"
           @click="add"
         ></mi-icon>
       </div>

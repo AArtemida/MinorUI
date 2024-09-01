@@ -1,35 +1,73 @@
-$primary: #2196f3;
-$white: #fff;
+$primary: #7c3aed;
+$primary-light: #a78bfa;
+$ink: #1e1b4b;
+$body-bg: #f9f8ff;
+$line: rgba(139, 92, 246, 0.12);
 
-// [class^="mi-"], [class*=" mi-"] {
-//   margin: 0;
-//   padding: 0;
-//   box-sizing: border-box;
-// }
+:root {
+  --mi-primary: #7c3aed;
+  --mi-primary-light: #a78bfa;
+  --mi-ink: #1e1b4b;
+  --mi-deep: #2d1b69;
+  --mi-body-bg: #f9f8ff;
+  --mi-line: rgba(139, 92, 246, 0.12);
+  --mi-font-display: 'Plus Jakarta Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --mi-font-body: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --mi-font-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+}
+
 html {
   font-size: 14px;
 }
 
-body, html, #app{
+body, html, #app {
   height: 100%;
 }
 
 body {
-  background: #ddedf6;
+  background: $body-bg;
+  font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: #4b5563;
 }
 
 .main-container {
   width: 100%;
   position: relative;
   text-align: left;
-  height: calc(100% - 55px);
+  height: calc(100% - 60px);
+  overflow-y: auto;
 }
+
 .vuedoc {
-  > h1, > h2, > h3 {
-    color: $primary;
-    margin: 20px 0;
+  background: #fff;
+  padding: 28px 40px 40px;
+  border-radius: 16px;
+  border: 1px solid $line;
+  box-shadow: 0 2px 20px rgba(30, 27, 75, 0.06);
+  > h1 {
+    font-family: var(--mi-font-display);
+    font-size: 30px;
+    font-weight: 800;
+    color: $ink;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  > h2 {
+    font-family: var(--mi-font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: $ink;
+    margin: 40px 0 16px;
+  }
+  > h3 {
+    font-family: var(--mi-font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: $ink;
+    margin: 32px 0 14px;
   }
 }
+
 .main-container {
   p, ul, ol {
     margin: 0;
@@ -42,9 +80,30 @@ body {
   table {
     background: #fff;
     width: 100%;
+    border: 1px solid $line;
+    border-radius: 12px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    th {
+      background: rgba(139, 92, 246, 0.06);
+      color: $primary;
+      font-family: var(--mi-font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
     th, td {
-      padding: 10px;
-      border-bottom: 1px solid #dcdfe6;
+      padding: 11px 18px;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.08);
+      text-align: left;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tr:nth-child(even) td {
+      background: rgba(245, 243, 255, 0.4);
     }
   }
 }
@@ -58,17 +117,8 @@ ul {
   display: none;
 }
 
-.vuedoc {
-  background: #fff;
-  padding: 5px 20px 20px 20px;
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
-  h2 {
-    margin-bottom: 20px;
-  }
-}
 .hljs--one-light.hljs {
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: #fafafa;
   border: 1px solid #eaeefb;
 }
@@ -80,8 +130,11 @@ ul {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(144, 147, 153, 0.5);
+  background: rgba(139, 92, 246, 0.25);
   border-radius: 4px;
+  &:hover {
+    background: rgba(139, 92, 246, 0.5);
+  }
 }
 
 .demo-input {

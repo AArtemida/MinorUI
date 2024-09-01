@@ -29,11 +29,12 @@ export default defineComponent({
 .mi-doc {
   display: flex;
   height: 100%;
+  min-height: 100%;
   .mi-doc-content {
     flex: 1 auto;
-    padding: 20px;
-    padding-left: calc(15% + 24px);
-    overflow-y: scroll;
+    padding: 28px 40px 60px;
+    padding-left: 264px;
+    overflow-y: auto;
   }
 }
 </style>

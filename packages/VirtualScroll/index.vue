@@ -36,10 +36,10 @@ import {
   nextTick,
   reactive,
   onMounted,
+  watch,
   unref
 } from 'vue'
 import type { CSSProperties } from 'vue'
-import debounce from '~/utils/debounce'
 
 defineOptions({
   name: 'MiVirtualScroll',
@@ -77,7 +77,7 @@ const state = reactive({
   listHeight: 0,
 })
 // 显示的条数
-const displayCount: number = props.rows
+const displayCount = computed(() => props.rows)
 //  每项的高度
 let itemHeight: number = 0
 
@@ -116,40 +116,47 @@ const listTotal = computed<number>(() => {
 // 显示的列表数据
 const listData = computed(() => {
   const pList = props.list
-  let endIdx = state.start + displayCount + props.cacheCount
+  let endIdx = state.start + displayCount.value + props.cacheCount
   if (endIdx >= pList.length) endIdx = pList.length
   return pList.slice(state.start, endIdx).map((v: any, index: number) => {
     const idx: number = state.start + index + 1
     if (typeof v === 'string' || typeof v === 'number') {
-      v = {
+      return {
         val: v,
         idx,
       }
-    } else {
-      v.idx = idx
     }
-    return v
+    // 不直接改写 prop 数组项，浅拷贝后注入序号
+    return { ...v, idx }
   })
 })
 
 // 初始化
 function initScroll() {
-  if (unref<number>(listTotal) > 0) {
+  if (listTotal.value > 0) {
     nextTick(() => {
       const scrollRef = scrollUlRef.value
       const wrapRef = scrollWrapRef.value
+      if (!scrollRef || !wrapRef) return
       // 列表距离顶部距离
       state.initHeight =
-        scrollUlRef.value.getBoundingClientRect().top + wrapRef?.scrollTop
+        scrollRef.getBoundingClientRect().top + (wrapRef.scrollTop || 0)
       // 计算每行高度
       itemHeight =
         scrollRef.children && scrollRef.children.length
           ? scrollRef.children[0].offsetHeight
           : 0
-      state.listHeight = itemHeight * unref<number>(listTotal)
+      state.listHeight = itemHeight * listTotal.value
     })
   }
 }
+
+// 列表数据变化后重新测量，否则占位高度失效导致滚动异常
+watch(listTotal, () => {
+  state.start = 0
+  state.scrollTop = 0
+  initScroll()
+})
 
 // 滚动事件
 function scrollHandlerCb() {
@@ -172,8 +179,16 @@ function scrollHandlerCb() {
     state.start = 0
   }
 }
+// rAF 节流，避免滚动时高频触发
+let scrollTicking = false
 function scrollHandler() {
-  debounce(scrollHandlerCb, 500)()
+  if (!scrollTicking) {
+    requestAnimationFrame(() => {
+      scrollHandlerCb()
+      scrollTicking = false
+    })
+    scrollTicking = true
+  }
 }
 </script>
 

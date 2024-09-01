@@ -19,8 +19,8 @@
       <ul class="mi-images__list">
         <li
           class="mi-images__item"
-          v-for="img in imgList"
-          :key="'mi_image_list_' + img"
+          v-for="(img, index) in imgList"
+          :key="'mi_image_list_' + index"
           :style="customStyle"
         >
           <div class="mi-images__src" @click="imgClick(img)">

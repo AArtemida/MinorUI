@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, nextTick, computed, watch, unref } from 'vue'
+import { ref, onMounted, onBeforeUnmount, onBeforeUpdate, nextTick, computed, watch, unref } from 'vue'
 import type { Ref } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 
@@ -77,7 +77,7 @@ defineOptions({
 const props = defineProps({
   data: {
     type: Object,
-    default: () => {},
+    default: () => ({}),
   },
 })
 
@@ -94,8 +94,11 @@ let timeLineBox = ref<HTMLDivElement | null>(null)
 let timeLineUl: HTMLDivElement | null = null
 
 let timeItems = ref<Array<HTMLDivElement>>([])
+onBeforeUpdate(() => {
+  timeItems.value = []
+})
 let setTimeItemRef = (el: any) => {
-  if (el && !timeItems.value.includes(el)) {
+  if (el) {
     (timeItems.value as Array<HTMLElement>).push(el);
   }
 };
@@ -252,7 +255,7 @@ const wheelHandler = (e: Event) => {
   e.preventDefault()
   if (!scrollTicking) {
     requestAnimationFrame(() => {
-      const wheel = ~wheelEvent.deltaY
+      const wheel = -wheelEvent.deltaY
       const curX = boxLeft.value
       const newL = curX + wheel
       getBoxLeft(newL)
@@ -280,4 +283,11 @@ const silderMousedown = (e: MouseEvent) => {
     document.onmouseup = null
   }
 }
+
+onBeforeUnmount(() => {
+  isClickList = false
+  isClickSlider = false
+  document.onmousemove = null
+  document.onmouseup = null
+})
 </script>

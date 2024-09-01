@@ -16,6 +16,6 @@ const props = defineProps({
 })
 
 const iconTag = computed(() => {
-  return `${props.icon}`
+  return props.icon || ''
 })
 </script>

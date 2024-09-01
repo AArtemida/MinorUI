@@ -7,15 +7,24 @@
  */
 import { ref, onMounted } from 'vue'
 
-export const drawCanvas = () => {
+interface CanvasOptions {
+  starColor?: string
+  dotColor?: string
+}
+
+export const drawCanvas = (options: CanvasOptions = {}) => {
   const canvas = ref<HTMLCanvasElement>()
   onMounted(() => {
     const canvasDom = canvas.value!
+    if (options.starColor) starColor = options.starColor
+    if (options.dotColor) dotColor = options.dotColor
     canvasDom.width =
+      canvasDom.clientWidth ||
       window.innerWidth ||
       document.documentElement.clientWidth ||
       document.body.clientWidth
     canvasDom.height =
+      canvasDom.clientHeight ||
       window.innerHeight ||
       document.documentElement.clientHeight ||
       document.body.clientHeight
@@ -71,8 +80,8 @@ const dotsMinDist: number = 2,
     maxDistFromCursor: 50,
     dotsSpeed: 0,
     backgroundSpeed: 0,
-  },
-  starColor = '33,150,243',
+  }
+let starColor = '33,150,243',
   dotColor = '157,205,244'
 let mouseMoveChecker: any
 

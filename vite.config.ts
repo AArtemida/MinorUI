@@ -64,7 +64,7 @@ const config: UserConfig = {
   build: {
     outDir: 'lib',
     lib: {
-      entry: path.resolve(__dirname, 'src/packages/index.ts'),
+      entry: path.resolve(__dirname, 'packages/index.ts'),
       name: 'v-minor-ui',
       formats: ['es'],
       fileName: format => `lib/minorUi.${format}.js`,

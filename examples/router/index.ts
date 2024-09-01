@@ -40,9 +40,7 @@ const routes: Array<RouteRecordRaw> = [
   ...pages,
   {
     path: '/:currentPath(.*)*', // 路由未匹配到，进入这个
-    redirect: (_) => {
-      return { path: '/404' }
-    },
+    redirect: '/',
   },
 ]
 

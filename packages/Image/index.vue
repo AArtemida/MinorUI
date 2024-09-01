@@ -1,5 +1,5 @@
 <template>
-  <div class="mi-image">
+  <div class="mi-image" ref="rootRef">
     <slot v-if="isError" name="error">
       <div class="mi-image__error">加载失败</div>
     </slot>
@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue'
 
 defineOptions({
   name: 'MiImage',
@@ -39,13 +39,31 @@ const emits = defineEmits({
   'img-click': () => true,
 })
 
+const rootRef = ref<HTMLDivElement | null>(null)
 const imageSrc = ref<string | undefined>()
 const isError = ref(false)
-const isLoading = ref(true)
+const isLoading = ref(false)
+// 懒加载：进入可视区前不请求图片
+let io: IntersectionObserver | null = null
+let inView = false
 
 const altText = computed(() => props.alt || 'image')
 
+const stopObserve = () => {
+  if (io) {
+    io.disconnect()
+    io = null
+  }
+}
+
 const loadImage = () => {
+  if (!props.src) {
+    isLoading.value = false
+    isError.value = false
+    imageSrc.value = undefined
+    return
+  }
+  if (props.lazy && !inView) return
   isLoading.value = true
   isError.value = false
   imageSrc.value = props.src
@@ -75,6 +93,18 @@ watch(
 )
 
 onMounted(() => {
+  if (props.lazy) {
+    io = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        inView = true
+        stopObserve()
+        loadImage()
+      }
+    })
+    if (rootRef.value) io.observe(rootRef.value)
+  }
   loadImage()
 })
+
+onBeforeUnmount(stopObserve)
 </script>
