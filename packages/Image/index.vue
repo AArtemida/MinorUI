@@ -44,6 +44,8 @@ const imageSrc = ref<string | undefined>()
 const isError = ref(false)
 const isLoading = ref(false)
 // 懒加载：进入可视区前不请求图片
+// 提前 200px 开始加载, 减少滚动到可见时的等待
+const LAZY_PRELOAD = 200
 let io: IntersectionObserver | null = null
 let inView = false
 
@@ -54,6 +56,32 @@ const stopObserve = () => {
     io.disconnect()
     io = null
   }
+}
+
+// 快速滚动时元素可能整段跳过视口, IntersectionObserver 采不到交叉状态,
+// 用捕获阶段的 scroll 事件兜底检测(capture 可监听任意内部滚动容器)
+let scrollTicking = false
+const checkInView = () => {
+  if (inView || !rootRef.value) return
+  const rect = rootRef.value.getBoundingClientRect()
+  if (rect.bottom > -LAZY_PRELOAD && rect.top < window.innerHeight + LAZY_PRELOAD) {
+    inView = true
+    stopLazy()
+    loadImage()
+  }
+}
+const onScroll = () => {
+  if (scrollTicking || inView) return
+  scrollTicking = true
+  requestAnimationFrame(() => {
+    scrollTicking = false
+    checkInView()
+  })
+}
+
+const stopLazy = () => {
+  stopObserve()
+  window.removeEventListener('scroll', onScroll, true)
 }
 
 const loadImage = () => {
@@ -94,17 +122,21 @@ watch(
 
 onMounted(() => {
   if (props.lazy) {
-    io = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting)) {
-        inView = true
-        stopObserve()
-        loadImage()
-      }
-    })
+    io = new IntersectionObserver(
+      entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          inView = true
+          stopLazy()
+          loadImage()
+        }
+      },
+      { rootMargin: `${LAZY_PRELOAD}px 0px` }
+    )
     if (rootRef.value) io.observe(rootRef.value)
+    window.addEventListener('scroll', onScroll, true)
   }
   loadImage()
 })
 
-onBeforeUnmount(stopObserve)
+onBeforeUnmount(stopLazy)
 </script>

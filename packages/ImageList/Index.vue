@@ -77,21 +77,22 @@ let curTotal: number = 0
 
 const imgWidth = computed<number>(() => props.width + (props.padding || 0))
 
-// 计算一屏最大显示个数
-onMounted(() => {
-  const wrapRef = unref<HTMLDivElement | null>(imagesBoxRef)
-  let dom = wrapRef?.querySelector(".mi-images__content")
-  imagesContentRef = dom as HTMLDivElement
-
-  useResizeObserver(imagesBoxRef, resizeListener)
-})
-
 const resizeListener = function () {
   const wrapRef = unref<HTMLDivElement | null>(imagesBoxRef)
   let allWidth = wrapRef?.offsetWidth || 0
   let w = unref<number>(imgWidth) || 1
   curTotal = Math.floor(allWidth / w)
 }
+
+// 在 setup 作用域注册，组件卸载时自动销毁（在 onMounted 内注册不会随组件销毁，导致泄漏）
+useResizeObserver(imagesBoxRef, resizeListener)
+
+// 计算一屏最大显示个数
+onMounted(() => {
+  const wrapRef = unref<HTMLDivElement | null>(imagesBoxRef)
+  let dom = wrapRef?.querySelector(".mi-images__content")
+  imagesContentRef = dom as HTMLDivElement
+})
 
 // 计算属性
 // const marginLeft = computed(() => {

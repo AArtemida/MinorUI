@@ -1,0 +1,47 @@
+@import "mixins/mixins";
+@import "./common/var";
+
+@include b(split-pane) {
+  display: flex;
+  flex-direction: row;
+
+  @include when(dragging) {
+    user-select: none;
+    cursor: col-resize;
+  }
+
+  // 拖拽分隔条
+  @include e(gutter) {
+    background: #ccc;
+    opacity: 0.2;
+    z-index: 1;
+    box-sizing: border-box;
+    background-clip: padding-box;
+    width: 11px;
+    margin: 0 5px;
+    border-left: 5px solid rgba(255, 255, 255, 0);
+    border-right: 5px solid rgba(255, 255, 255, 0);
+    cursor: col-resize;
+    flex-shrink: 0;
+
+    &:hover,
+    &:focus {
+      border-left-color: rgba(0, 0, 0, 0.5);
+      border-right-color: rgba(0, 0, 0, 0.5);
+      transition: border-color 0.2s ease;
+    }
+  }
+
+  @include e(left) {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 180px;
+    max-width: 60vw;
+  }
+
+  @include e(right) {
+    flex: 1 1 auto;
+    width: 0;
+    overflow: auto;
+  }
+}

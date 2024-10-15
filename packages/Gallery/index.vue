@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted, unref } from 'vue'
+import { ref, computed, unref } from 'vue'
 import type { Ref, PropType } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
 import ImagePreview from '~/ImagePreview'
@@ -74,15 +74,14 @@ const remainImgList = computed(() =>
 )
 
 // 计算一屏显示多少
-onMounted(() => {
-  useResizeObserver(imagesBoxRef, resizeListener)
-})
-
 const resizeListener = function () {
   const wrapRef = imagesBoxRef.value
   const allWidth = wrapRef?.offsetWidth || 0
   curTotal.value = Math.floor(allWidth / unref<number>(imgWidth))
 }
+
+// 在 setup 作用域注册，组件卸载时自动销毁（在 onMounted 内注册不会随组件销毁，导致泄漏）
+useResizeObserver(imagesBoxRef, resizeListener)
 
 const imgClass = function (index: number) {
   const len = unref(imgList).length

@@ -90,6 +90,13 @@ let isClickList: boolean = false,
   isClickSlider: boolean = false,
   scrollTicking: boolean = false
 
+// 拖拽状态（列表 / 滑块共用）
+let dragState: {
+  mode: 'list' | 'slider'
+  startX: number
+  startLeft: number
+} | null = null
+
 let timeLineBox = ref<HTMLDivElement | null>(null)
 let timeLineUl: HTMLDivElement | null = null
 
@@ -104,14 +111,10 @@ let setTimeItemRef = (el: any) => {
 };
 onMounted(() => {
   nextTick(() => {
-    // const wrapRef = timeLineBox.value,
-    // timeItemRef = timeItem.value
     const wrapRef = unref<HTMLDivElement | null>(timeLineBox)
     let dom = wrapRef?.querySelector(".mi-timeline__lines")
     timeLineUl = dom as HTMLDivElement
   })
-
-  useResizeObserver(timeLineBox, getAllWidth)
 })
 
 watch(
@@ -188,6 +191,8 @@ const getAllWidth = () => {
   sliderLeft.value = 0
   boxLeft.value = 0
 }
+// 在 setup 作用域注册，组件卸载时自动销毁（在 onMounted 内注册不会随组件销毁，导致泄漏）
+useResizeObserver(timeLineBox, getAllWidth)
 // 获取各个时间轴线条宽度
 const getLineFlex = (len: number): string => {
   return len + ' auto'
@@ -206,22 +211,29 @@ const getBoxLeft = (newL: number) => {
   }
   sliderLeft.value = Math.abs(boxLeft.value) / commonRate.value
 }
+// 使用 addEventListener，避免直接赋值 document.onmousemove 被其他实例/组件覆盖
+const onDragMove = (e: MouseEvent) => {
+  if (!dragState) return
+  const newL: number = dragState.startLeft + (e.clientX - dragState.startX)
+  if (dragState.mode === 'list') {
+    getBoxLeft(newL)
+  } else {
+    getSliderLeft(newL)
+  }
+}
+const onDragEnd = () => {
+  dragState = null
+  isClickList = false
+  isClickSlider = false
+  document.removeEventListener('mousemove', onDragMove)
+  document.removeEventListener('mouseup', onDragEnd)
+}
+
 const mousedown = (e: MouseEvent) => {
-  const disX = e.clientX
-  const curX = boxLeft.value
   isClickList = true
-  document.onmousemove = e => {
-    if (isClickList) {
-      const newDisX: number = e.clientX - disX
-      const newL: number = curX + newDisX
-      getBoxLeft(newL)
-    }
-  }
-  document.onmouseup = () => {
-    isClickList = false
-    document.onmousemove = null
-    document.onmouseup = null
-  }
+  dragState = { mode: 'list', startX: e.clientX, startLeft: boxLeft.value }
+  document.addEventListener('mousemove', onDragMove)
+  document.addEventListener('mouseup', onDragEnd)
 }
 // 滑块的位置
 const getSliderLeft = (newL: number) => {
@@ -268,26 +280,13 @@ const wheelHandler = (e: Event) => {
 // 拖动滑块
 const silderMousedown = (e: MouseEvent) => {
   isClickSlider = true
-  const disX = e.clientX
-  const curX = sliderLeft.value
-  document.onmousemove = e => {
-    if (isClickSlider) {
-      const newDisX = e.clientX - disX
-      const newL = curX + newDisX
-      getSliderLeft(newL)
-    }
-  }
-  document.onmouseup = () => {
-    isClickSlider = false
-    document.onmousemove = null
-    document.onmouseup = null
-  }
+  dragState = { mode: 'slider', startX: e.clientX, startLeft: sliderLeft.value }
+  document.addEventListener('mousemove', onDragMove)
+  document.addEventListener('mouseup', onDragEnd)
 }
 
 onBeforeUnmount(() => {
-  isClickList = false
-  isClickSlider = false
-  document.onmousemove = null
-  document.onmouseup = null
+  // 若卸载时仍在拖拽中，先解绑 document 监听
+  onDragEnd()
 })
 </script>

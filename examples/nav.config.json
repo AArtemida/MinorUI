@@ -48,6 +48,41 @@
           },
           "path": "Icon",
           "name": "Icon"
+        },
+        {
+          "meta": {
+            "title": "Input 输入框"
+          },
+          "path": "Input",
+          "name": "Input"
+        },
+        {
+          "meta": {
+            "title": "IpInput IP 输入框"
+          },
+          "path": "IpInput",
+          "name": "IpInput"
+        },
+        {
+          "meta": {
+            "title": "Dialog 弹窗"
+          },
+          "path": "Dialog",
+          "name": "Dialog"
+        },
+        {
+          "meta": {
+            "title": "Tooltip 文字提示"
+          },
+          "path": "Tooltip",
+          "name": "Tooltip"
+        },
+        {
+          "meta": {
+            "title": "SplitPane 分栏面板"
+          },
+          "path": "SplitPane",
+          "name": "SplitPane"
         }
       ]
     },
@@ -97,6 +132,20 @@
           },
           "path": "HorizontalTimeline",
           "name": "HorizontalTimeline"
+        },
+        {
+          "meta": {
+            "title": "DragDialog 编辑数据列"
+          },
+          "path": "DragDialog",
+          "name": "DragDialog"
+        },
+        {
+          "meta": {
+            "title": "SearchInput 搜索输入框"
+          },
+          "path": "SearchInput",
+          "name": "SearchInput"
         }
       ]
     }

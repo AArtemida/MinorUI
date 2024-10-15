@@ -1,0 +1,218 @@
+@import "mixins/mixins";
+@import "./common/var";
+
+// 输入框尺寸
+@mixin input-size($height, $font-size) {
+  .mi-input__wrapper {
+    padding: 0 11px;
+  }
+  .mi-input__inner {
+    height: $height;
+    line-height: $height;
+    font-size: $font-size;
+  }
+  .mi-input__icon {
+    font-size: $font-size + 2;
+  }
+}
+
+@include b(input) {
+  display: inline-flex;
+  width: 100%;
+  font-size: 14px;
+  color: var(--text-color-regular, #606266);
+
+  @include e(wrapper) {
+    display: inline-flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    background: var(--color-bg, #fff);
+    border: 1px solid var(--color-border, #dcdfe6);
+    border-radius: 4px;
+    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    gap: 4px;
+
+    &:hover {
+      border-color: var(--text-color-secondary, #909399);
+    }
+
+    @include when(focus) {
+      border-color: var(--color-primary, #7c3aed);
+    }
+  }
+
+  @include e(inner) {
+    flex: 1;
+    min-width: 0;
+    height: 32px;
+    line-height: 32px;
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    color: var(--text-color-primary, #303133);
+    background: transparent;
+    cursor: pointer;
+
+    &::placeholder {
+      color: #a8abb2;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+      margin: 0;
+    }
+  }
+
+  @include e(prefix) {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    white-space: nowrap;
+    color: var(--text-color-secondary, #909399);
+  }
+
+  @include e(suffix) {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 4px;
+    white-space: nowrap;
+    color: var(--text-color-secondary, #909399);
+  }
+
+  @include e(icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    color: var(--text-color-secondary, #909399);
+
+    &.mi-input__clear,
+    &.mi-input__password {
+      cursor: pointer;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--text-color-primary, #303133);
+      }
+    }
+  }
+
+  @include e(count) {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-color-secondary, #909399);
+    line-height: normal;
+    padding-left: 8px;
+  }
+
+  // 前置/后置内容
+  @include e(prepend) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0 20px;
+    background: #f5f7fa;
+    border: 1px solid var(--color-border, #dcdfe6);
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    color: var(--text-color-regular, #606266);
+    white-space: nowrap;
+  }
+
+  @include e(append) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0 20px;
+    background: #f5f7fa;
+    border: 1px solid var(--color-border, #dcdfe6);
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    color: var(--text-color-regular, #606266);
+    white-space: nowrap;
+  }
+
+  @include when(disabled) {
+    .mi-input__wrapper {
+      background-color: #f5f7fa;
+      border-color: var(--color-border-light, #e4e7ed);
+      cursor: not-allowed;
+    }
+
+    .mi-input__inner {
+      color: #c0c4cc;
+      cursor: not-allowed;
+
+      &::placeholder {
+        color: #c0c4cc;
+      }
+    }
+  }
+
+  // 尺寸
+  &.mi-input--large {
+    @include input-size(40px, 16px);
+  }
+
+  &.mi-input--default {
+    @include input-size(32px, 14px);
+  }
+
+  &.mi-input--small {
+    @include input-size(24px, 12px);
+
+    .mi-input__wrapper {
+      padding: 0 7px;
+    }
+  }
+}
+
+// 文本域
+@include b(textarea) {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 11px;
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 20px;
+  color: var(--text-color-primary, #303133);
+  background: var(--color-bg, #fff);
+  border: 1px solid var(--color-border, #dcdfe6);
+  border-radius: 4px;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  &::placeholder {
+    color: #a8abb2;
+  }
+
+  &:hover {
+    border-color: var(--text-color-secondary, #909399);
+  }
+
+  &.is-focus {
+    border-color: var(--color-primary, #7c3aed);
+  }
+
+  &.is-disabled {
+    background-color: #f5f7fa;
+    border-color: var(--color-border-light, #e4e7ed);
+    color: #c0c4cc;
+    cursor: not-allowed;
+
+    &::placeholder {
+      color: #c0c4cc;
+    }
+  }
+}

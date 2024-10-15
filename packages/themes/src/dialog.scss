@@ -1,0 +1,93 @@
+@import "mixins/mixins";
+@import "./common/var";
+
+@include b(dialog) {
+  position: relative;
+  margin: 10vh auto 50px;
+  background: var(--color-bg, #fff);
+  border-radius: 4px;
+  box-shadow: var(--color-box-shadow-light);
+  box-sizing: border-box;
+  width: 50%;
+
+  // 打开时内容缩放淡入(配合遮罩过渡)
+  animation: mi-dialog-in 0.25s ease;
+
+  @include e(header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 10px;
+  }
+
+  @include e(title) {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    color: var(--text-color-primary);
+  }
+
+  @include e(headerbtn) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    color: var(--text-color-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--color-primary, #7c3aed);
+    }
+  }
+
+  @include e(body) {
+    padding: 12px 20px 20px;
+    color: var(--text-color-regular);
+    font-size: 14px;
+  }
+
+  @include e(footer) {
+    padding: 10px 20px 16px;
+    text-align: right;
+    box-sizing: border-box;
+  }
+}
+
+// 遮罩
+.mi-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  z-index: 1000;
+}
+
+// 遮罩淡入淡出
+.mi-dialog-fade-enter-active,
+.mi-dialog-fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+.mi-dialog-fade-enter-from,
+.mi-dialog-fade-leave-to {
+  opacity: 0;
+}
+
+@keyframes mi-dialog-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
