@@ -28,6 +28,11 @@ const containers = ['success', 'warning', 'error'].map(type => {
 const config: UserConfig = {
   server: {
     port: 3001,
+    // 构建产物不参与 HMR；忽略后 chokidar 不再持有 lib/dist 目录句柄，
+    // 否则 Windows 下开发服务器运行时 yarn clean 删除 lib\themes 会 EBUSY
+    watch: {
+      ignored: ['**/lib/**', '**/dist/**'],
+    },
   },
   plugins: [
     createPlugin({

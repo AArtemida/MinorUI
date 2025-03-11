@@ -63,7 +63,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, onBeforeUnmount, onBeforeUpdate, nextTick, computed, watch, unref } from 'vue'
 import type { Ref } from 'vue'
-import { useResizeObserver } from '@vueuse/core'
+import { useResizeObserver } from '../utils/resizeObserver'
 
 type timeType = number | string
 interface ListModel {

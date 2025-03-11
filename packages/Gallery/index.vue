@@ -32,7 +32,8 @@
 <script lang="ts" setup>
 import { ref, computed, unref } from 'vue'
 import type { Ref, PropType } from 'vue'
-import { useResizeObserver } from '@vueuse/core'
+import { useResizeObserver } from '../utils/resizeObserver'
+import MiImage from '~/Image'
 import ImagePreview from '~/ImagePreview'
 defineOptions({
   name: 'MiGallery',

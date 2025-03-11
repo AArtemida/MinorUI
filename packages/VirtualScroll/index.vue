@@ -191,11 +191,3 @@ function scrollHandler() {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.mi-virtual-scroll {
-  max-width: 100%;
-  max-height: 100%;
-  overflow: auto;
-}
-</style>

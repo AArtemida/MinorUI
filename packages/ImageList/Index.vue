@@ -45,8 +45,9 @@
 <script lang="ts" setup>
 import { computed, ref, onMounted, unref } from 'vue'
 import type { CSSProperties, PropType } from 'vue'
-import { useResizeObserver } from '@vueuse/core'
+import { useResizeObserver } from '../utils/resizeObserver'
 import MiIcon from '~/Icon'
+import MiImage from '~/Image'
 
 defineOptions({
   name: 'MiImageList',

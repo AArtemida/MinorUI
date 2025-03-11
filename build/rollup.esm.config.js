@@ -1,22 +1,17 @@
 /*
- * @Description: 组件库打包配置
- * @Author: moon
- * @Date: 2021-11-29 10:39:38
- * @LastEditors: hy
- * @LastEditTime: 2022-04-24 17:15:31
+ * @Description: 按需引入构建配置 —— 输出 lib/es/**（保留模块结构，每组件一个目录）
+ * 配合 package.json exports 与 resolver，支持：
+ *   import MiCard from 'v-minor-ui/lib/es/Card'
+ *   import 'v-minor-ui/lib/themes/card.css'
  */
-// plugin-esbuild将ts变为js
 import esbuild from 'rollup-plugin-esbuild'
 // plugin-vue将vue结尾的文件变为js
 import vue from 'rollup-plugin-vue'
-import scss from 'rollup-plugin-scss'
-import dartSass from 'sass'
 // js压缩丑化
 import { terser } from 'rollup-plugin-terser'
 //
 import nodeResolve from 'rollup-plugin-node-resolve'
 import typescript from 'rollup-plugin-typescript2'
-// import babel from 'rollup-plugin-babel'
 import path from 'path'
 import fs from 'fs'
 
@@ -57,70 +52,47 @@ function packageResolver() {
   }
 }
 
-const overrides = {
-  compilerOptions: { declaration: true }, // 是否创建 typescript 声明文件
-  exclude: [
-    // 排除项
-    'node_modules',
-    'examples',
-    'vite.config.ts',
-  ],
-}
-
+// 单一根入口 + preserveModules：
+// 所有组件模块（packages/<Comp>/index.ts）自动落到 lib/es/<Comp>/index.js，
+// 目录导入（'v-minor-ui/lib/es/Card'）天然可用，无需多入口重命名。
 export default {
-  input: './packages/index.ts',
-  // //外部库不打包， 使用'umd'文件时需要先引入这个外部库
-  external: ['vue', 'markdown-it-container'],
-  output: [
-    {
-      globals: {
-        vue: 'Vue',
-      },
-      name: 'minorUi',
-      file: 'lib/minorUi.js',
-      format: 'es',
-      plugins: [terser()],
-    },
-    /*{
-      globals: {
-        vue: 'Vue',
-      },
-      name: 'minorUi',
-      file: 'lib/minorUi.js',
-      format: 'cjs',
-      plugins: [terser()],
-    },*/
-    {
-      globals: {
-        vue: 'Vue',
-      },
-      name: 'minorUi',
-      file: 'lib/minorUi.umd.js',
-      format: 'umd',
-      plugins: [terser()],
-    },
-  ],
+  input: path.join(pkgRoot, 'index.ts'),
+  // 外部库不打包
+  external: ['vue'],
+  output: {
+    dir: 'lib/es',
+    format: 'es',
+    // 保留模块结构，packages 为模块根（产物不含 packages 前缀）
+    preserveModules: true,
+    preserveModulesRoot: 'packages',
+  },
   // 插件有序加载
   plugins: [
     packageResolver(),
     nodeResolve(),
-    scss({
-      include: /\.scss$/,
-      sass: dartSass,
-    }),
     vue({
       include: /\.vue$/,
     }),
-    // check:false：rpt2 对 rollup-plugin-vue 编译产物（含 Teleport 的 render 函数）
-    // 存在类型误报，跳过类型检查（打包产物由 esbuild 转译，不依赖诊断）
-    typescript({ tsconfigOverride: overrides, check: false, clean: true }),
-    // babel({
-    //   exclude: 'node_modules/**',
-    // }),
+    // 声明文件输出到 lib/es 与 js 同目录，便于按路径自动解析类型
+    typescript({
+      useTsconfigDeclarationDir: true,
+      tsconfigOverride: {
+        compilerOptions: {
+          declaration: true,
+          declarationDir: 'lib/es',
+          rootDir: 'packages',
+        },
+        include: ['packages/**/*'],
+        exclude: ['node_modules', 'examples', 'vite.config.ts'],
+      },
+      check: false,
+      clean: true,
+      cacheRoot: 'node_modules/.cache/rollup-plugin-typescript2-es',
+    }),
     esbuild({
       include: /\.[jt]s$/,
-      minify: process.env.NODE_ENV === 'production',
       target: 'es2015',
     }),
+    terser({ module: true }),
   ],
 }
