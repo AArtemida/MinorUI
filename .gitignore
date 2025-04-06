@@ -7,3 +7,4 @@ dist-ssr
 dist.zip
 .vscode
 yarn-error.log
+lib/
