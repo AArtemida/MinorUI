@@ -1,0 +1,108 @@
+@import "mixins/mixins";
+@import "./common/var";
+
+// 触发元素包裹层
+@include b(tooltip) {
+  @include e(rel) {
+    position: relative;
+    display: inline-block;
+  }
+
+  @include e(popper) {
+    // teleport 到 body 下用 fixed 定位, 坐标由组件 JS 计算,
+    // 不受触发元素宽度影响, 按内容自适应宽度
+    position: fixed;
+    z-index: 2000;
+    width: max-content;
+    max-width: 300px;
+    box-sizing: border-box;
+    padding: 6px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 4px;
+    word-break: break-word;
+    white-space: normal;
+
+    &.is-dark {
+      background: #303133;
+      color: var(--color-white);
+
+      .mi-tooltip__arrow {
+        background: #303133;
+      }
+    }
+
+    &.is-light {
+      background: var(--color-bg);
+      color: var(--text-color-primary);
+      border: 1px solid var(--color-border-light);
+      box-shadow: var(--color-box-shadow-light);
+
+      .mi-tooltip__arrow {
+        background: var(--color-bg);
+        border: 1px solid transparent;
+      }
+    }
+
+    // left/top 由 JS 写入, 这里只负责以锚点为基准的偏移方向
+    &.mi-tooltip--top {
+      transform: translate(-50%, -100%);
+
+      .mi-tooltip__arrow {
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        border-top-color: var(--color-border-light);
+      }
+    }
+
+    &.mi-tooltip--bottom {
+      transform: translateX(-50%);
+
+      .mi-tooltip__arrow {
+        bottom: 100%;
+        left: 50%;
+        transform: translate(-50%, 50%) rotate(45deg);
+        border-bottom-color: var(--color-border-light);
+      }
+    }
+
+    &.mi-tooltip--left {
+      transform: translate(-100%, -50%);
+
+      .mi-tooltip__arrow {
+        left: 100%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        border-left-color: var(--color-border-light);
+      }
+    }
+
+    &.mi-tooltip--right {
+      transform: translateY(-50%);
+
+      .mi-tooltip__arrow {
+        right: 100%;
+        top: 50%;
+        transform: translate(50%, -50%) rotate(45deg);
+        border-right-color: var(--color-border-light);
+      }
+    }
+  }
+
+  @include e(arrow) {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+  }
+}
+
+// 淡入淡出
+.mi-fade-in-linear-enter-active,
+.mi-fade-in-linear-leave-active {
+  transition: opacity 0.2s ease;
+}
+.mi-fade-in-linear-enter-from,
+.mi-fade-in-linear-leave-to {
+  opacity: 0;
+}

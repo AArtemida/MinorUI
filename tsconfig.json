@@ -1,13 +1,13 @@
 {
   // "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "include": ["./**/*.ts", "examples/**/*.vue", "packages", "vite.config.ts", "./**/*.md", "rollup.config.js"],
+  "include": ["./**/*.ts", "examples/**/*.vue", "packages", "vite.config.ts", "./**/*.md", "build/rollup.config.js"],
   "exclude": ["node_modules", "**/__test?__", "**/dist"],
   "compilerOptions": {
     "jsx":  "preserve",
     "target": "esnext" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
     "module": "ESNext" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
     "lib": ["esnext", "dom"] /* Specify library files to be included in the compilation. */,
-    // "declaration": true /* Generates corresponding '.d.ts' file. */,
+    "declaration": true /* Generates corresponding '.d.ts' file. */,
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
     "sourceMap": true /* Generates corresponding '.map' file. */,
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
@@ -19,6 +19,13 @@
     "resolveJsonModule": true,
 
     "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
-    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "types": ["unplugin-vue-define-options/macros-global"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["examples/*"],
+      "~/*": ["packages/*"],
+    },
+    "noImplicitAny": false
   }
 }

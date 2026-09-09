@@ -1,0 +1,39 @@
+@import "mixins/mixins";
+@import "./common/var";
+
+@include b(search-input) {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 30px;
+
+  @include when(active) {
+    .mi-search-input__input {
+      width: 280px;
+    }
+  }
+
+  @include e(icon) {
+    font-size: 18px;
+    color: var(--text-color-regular, #606266);
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--color-primary, #7c3aed);
+    }
+  }
+
+  // 输入框前缀里的搜索图标
+  @include e(icon-inner) {
+    font-size: 16px;
+    color: var(--text-color-secondary, #909399);
+  }
+
+  // 收起时宽度为 0, 展开过渡
+  @include e(input) {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.2s ease;
+  }
+}

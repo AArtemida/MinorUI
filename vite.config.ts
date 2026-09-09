@@ -14,6 +14,8 @@ import markdownItContainer from 'markdown-it-container'
 import Pages from "vite-plugin-pages"
 // 部分组件库自动按需引入组件
 // import ViteComponents from 'vite-plugin-components'
+// name
+import DefineOptions from 'unplugin-vue-define-options/vite';
 
 const path = require('path')
 const containers = ['success', 'warning', 'error'].map(type => {
@@ -26,6 +28,11 @@ const containers = ['success', 'warning', 'error'].map(type => {
 const config: UserConfig = {
   server: {
     port: 3001,
+    // 构建产物不参与 HMR；忽略后 chokidar 不再持有 lib/dist 目录句柄，
+    // 否则 Windows 下开发服务器运行时 yarn clean 删除 lib\themes 会 EBUSY
+    watch: {
+      ignored: ['**/lib/**', '**/dist/**'],
+    },
   },
   plugins: [
     createPlugin({
@@ -47,7 +54,8 @@ const config: UserConfig = {
       extensions: ['vue', 'md'],
       importMode: 'async',
     }),
-    // ViteComponents()
+    // ViteComponents(),
+    DefineOptions()
   ],
   resolve: {
     alias: {
@@ -55,14 +63,16 @@ const config: UserConfig = {
       '@docs': path.resolve(__dirname, './examples/docs'),
       '@components': path.resolve(__dirname, './examples/components'),
       '~': path.resolve(__dirname, './packages'),
-      vue: 'vue/dist/vue.esm-bundler.js',
+      vue: path.resolve('./node_modules/vue'),
     },
   },
   build: {
+    outDir: 'lib',
     lib: {
-      entry: path.resolve(__dirname, 'src/packages/index.ts'),
+      entry: path.resolve(__dirname, 'packages/index.ts'),
       name: 'v-minor-ui',
-      fileName: format => `lib.${format}.js`,
+      formats: ['es'],
+      fileName: format => `lib/minorUi.${format}.js`,
     },
     rollupOptions: {
       external: ['vue'],

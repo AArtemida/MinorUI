@@ -23,13 +23,11 @@ let minifontCss = () =>
     .pipe(cssmin())
     .pipe(dest(`${config.output}/fonts`));
 // 删除之前css打包文件
-let clean = done => {
-  del(
-    ["*.css", "fonts"].map(name => `${config.output}/${name}`),
-    { force: true }
-  );
-  done();
-};
+// 注意：必须返回 del 的 promise，否则后续任务会与删除操作并发，导致 fonts 目录偶发 ENOENT
+let clean = () =>
+  del(["*.css", "fonts"].map(name => `${config.output}/${name}`), {
+    force: true,
+  });
 
 const compile = () =>
   src([`${config.input}*.scss`])

@@ -1,0 +1,27 @@
+@import "mixins/mixins";
+@import "./common/var";
+
+@include b(rows) {
+  @include e(item) {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  @include e(icon) {
+    color: var(--color-white);
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    background: var(--color-primary);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 24px;
+    display: inline-block;
+    flex: none;
+    margin-left: 15px;
+  }
+}

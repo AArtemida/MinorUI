@@ -1,0 +1,56 @@
+@import "mixins/mixins";
+@import "./common/var";
+
+@include b(ip-input) {
+  display: inline-flex;
+  align-items: center;
+  line-height: 26px;
+  border: 1px solid var(--color-border, #dcdfe6);
+  background-color: #f7f8fc;
+  border-radius: 4px;
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  box-sizing: border-box;
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--color-primary, #7c3aed);
+  }
+
+  @include when(disabled) {
+    background-color: #f5f7fa;
+    border-color: var(--color-border-light, #e4e7ed);
+    cursor: not-allowed;
+  }
+
+  @include e(item) {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+
+    // 段间分隔点
+    & + .mi-ip-input__item::before {
+      content: '·';
+      color: var(--text-color-secondary, #909399);
+      line-height: 1;
+    }
+
+    .mi-ip-input__field {
+      width: 50px;
+    }
+
+    .mi-input__wrapper {
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
+
+    .mi-input__inner {
+      padding: 0 8px;
+      text-align: center;
+    }
+
+    &:focus-within .mi-input__inner {
+      color: var(--color-primary, #7c3aed);
+    }
+  }
+}

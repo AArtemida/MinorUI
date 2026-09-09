@@ -27,12 +27,62 @@
       "meta": {
         "title": "基础组件"
       },
-      "items": [{
+      "items": [
+        {
           "meta": {
             "title": "Card 卡片"
           },
           "path": "card",
           "name": "card"
+        },
+        {
+          "meta": {
+            "title": "Image 图片"
+          },
+          "path": "image",
+          "name": "image"
+        },
+        {
+          "meta": {
+            "title": "Icon 图标"
+          },
+          "path": "Icon",
+          "name": "Icon"
+        },
+        {
+          "meta": {
+            "title": "Input 输入框"
+          },
+          "path": "Input",
+          "name": "Input"
+        },
+        {
+          "meta": {
+            "title": "IpInput IP 输入框"
+          },
+          "path": "IpInput",
+          "name": "IpInput"
+        },
+        {
+          "meta": {
+            "title": "Dialog 弹窗"
+          },
+          "path": "Dialog",
+          "name": "Dialog"
+        },
+        {
+          "meta": {
+            "title": "Tooltip 文字提示"
+          },
+          "path": "Tooltip",
+          "name": "Tooltip"
+        },
+        {
+          "meta": {
+            "title": "SplitPane 分栏面板"
+          },
+          "path": "SplitPane",
+          "name": "SplitPane"
         }
       ]
     },
@@ -43,10 +93,31 @@
       "items": [
         {
           "meta": {
+            "title": "Article 文章卡片"
+          },
+          "path": "Article",
+          "name": "Article"
+        },
+        {
+          "meta": {
             "title": "ImageList 图片列表"
           },
           "path": "ImageList",
           "name": "ImageList"
+        },
+        {
+          "meta": {
+            "title": "Gallery 照片墙"
+          },
+          "path": "Gallery",
+          "name": "Gallery"
+        },
+        {
+          "meta": {
+            "title": "AddRows 动态行"
+          },
+          "path": "AddRows",
+          "name": "AddRows"
         },
         {
           "meta": {
@@ -61,6 +132,20 @@
           },
           "path": "HorizontalTimeline",
           "name": "HorizontalTimeline"
+        },
+        {
+          "meta": {
+            "title": "DragDialog 编辑数据列"
+          },
+          "path": "DragDialog",
+          "name": "DragDialog"
+        },
+        {
+          "meta": {
+            "title": "SearchInput 搜索输入框"
+          },
+          "path": "SearchInput",
+          "name": "SearchInput"
         }
       ]
     }

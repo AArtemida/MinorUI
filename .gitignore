@@ -7,3 +7,11 @@ dist-ssr
 dist.zip
 .vscode
 yarn-error.log
+npm-debug.log.
+lib/
+.idea
+.idea/
+.vscode/
+.cursorignore
+.DS_Store
+.claude/

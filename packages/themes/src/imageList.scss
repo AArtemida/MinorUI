@@ -4,10 +4,30 @@
 @include b(images) {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  transition: all ease .2s;
   @include e(content) {
+    height: 140px;
+    width: 100%;
+    position: relative;
+    margin-bottom: 10px;
+    overflow: hidden;
+    overflow-x: auto;
+    transition: all ease 0.3s;
+  }
+  .scroll-transition {
+    transition: scroll-left 0.3s ease-in-out;
+  }
+  @include e(list) {
+    height: 100%;
     display: flex;
     transition: all 0.3s;
-    overflow-x: scroll;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
   @include e(btn) {
     position: absolute;
@@ -19,6 +39,8 @@
     line-height: 40px;
     background: rgba(#fff, 0.7);
     top: 30%;
+    box-shadow: 1px 1px 8px #aaa;
+    z-index: 99;
   }
   @include e(next) {
     right: 0;
@@ -29,10 +51,8 @@
   @include e(item) {
     flex: none;
     width: 120px;
-    height: 140px;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    background: var(--color-primary);
     & + .mi-images__item {
       margin-left: 10px;
     }
@@ -49,6 +69,37 @@
     }
     .mi-images__txt {
       padding-bottom: 5px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+
+      > p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
+
+  @include e(scroll) {
+    position: relative;
+    height: 10px;
+    overflow: hidden;
+  }
+  @include e(barM) {
+    position: relative;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
+  }
+  @include e(bar) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    border-radius: 6px;
+    cursor: e-resize;
+    background: #ccc;
+}
 }

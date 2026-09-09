@@ -1,6 +1,6 @@
 
 // 创建debounce防抖函数
-const debounce = (f: any, wait: number) => {
+const debounce = (f: (...args: any[]) => any, wait: number) => {
   let timer: any // 创建一个标记用来存放定时器的返回值
   return (...args: any) => {
     // // 每当用户输入的时候把前一个 setTimeout clear 掉

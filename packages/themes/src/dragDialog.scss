@@ -1,0 +1,195 @@
+@import "mixins/mixins";
+@import "./common/var";
+
+@include b(drag-dialog) {
+  @include e(trigger) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    color: var(--text-color-regular);
+    font-size: 15px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+
+    &:hover {
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+  }
+
+  @include e(header) {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @include e(title) {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color-primary);
+  }
+
+  @include e(question) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin-left: 6px;
+    border: 1px solid var(--text-color-secondary);
+    border-radius: 50%;
+    color: var(--text-color-secondary);
+    font-size: 11px;
+    line-height: 1;
+    cursor: help;
+  }
+
+  @include e(wrapper) {
+    display: flex;
+    align-items: stretch;
+    user-select: none;
+  }
+
+  @include e(panel) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  @include e(panel-header) {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 12px;
+    background: rgba(242, 243, 245, 0.8);
+    border-bottom: 1px solid var(--color-border-light);
+    box-sizing: border-box;
+    font-size: 14px;
+    color: var(--text-color-primary);
+  }
+
+  @include e(count) {
+    margin-left: 6px;
+    color: var(--text-color-secondary);
+    font-size: 12px;
+  }
+
+  @include e(panel-body) {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 0;
+    box-sizing: border-box;
+
+    // 拖拽到列表末尾的插入指示线
+    &.is-drop-end {
+      box-shadow: inset 0 -2px 0 0 var(--color-primary);
+    }
+  }
+
+  @include e(middle) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    flex-shrink: 0;
+    color: var(--text-color-secondary);
+    font-size: 12px;
+
+    .mi-icon {
+      font-size: 18px;
+      color: var(--text-color-secondary);
+      opacity: 0.6;
+    }
+  }
+
+  @include e(item) {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    padding: 0 12px;
+    font-size: 14px;
+    color: var(--text-color-regular);
+    cursor: move;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: rgba(242, 243, 245, 0.7);
+    }
+
+    &.is-fixed {
+      cursor: default;
+      color: var(--text-color-secondary);
+
+      .mi-drag-dialog__handle {
+        visibility: hidden;
+      }
+    }
+
+    &.is-dragging {
+      opacity: 0.4;
+    }
+
+    // 拖拽插入位置的指示线
+    &.is-drop-before {
+      box-shadow: inset 0 2px 0 0 var(--color-primary);
+    }
+  }
+
+  @include e(handle) {
+    flex-shrink: 0;
+    margin-right: 8px;
+    color: var(--text-color-secondary);
+  }
+
+  @include e(label) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @include e(btn) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 15px;
+    background: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: 4px;
+    color: var(--color-white);
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &.is-plain {
+      background: var(--color-bg);
+      border-color: var(--color-border);
+      color: var(--text-color-regular);
+
+      &:hover {
+        color: var(--color-primary);
+        border-color: var(--color-primary);
+        opacity: 1;
+      }
+    }
+
+    & + & {
+      margin-left: 10px;
+    }
+  }
+}
